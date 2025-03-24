@@ -1,0 +1,133 @@
+<mvc:View xmlns:layout="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:f="sap.f" controllerName="hrmate.controller.TimesheetEntry"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc">
+
+    <App>
+        <pages>
+            <Page showHeader="false">
+                <f:DynamicPage >
+                    <f:title>
+                        <f:DynamicPageTitle>
+                            <f:heading>
+                                <Title text="Timesheet Entry" wrapping="true"/>
+                            </f:heading>
+                            <f:expandedContent>
+                                <Label design="Bold" text="{maindata>/EmployeeCode}"/>
+                            </f:expandedContent>
+                            <f:snappedContent>
+                                <Label design="Bold" text="{maindata>/EmployeeCode}"/>
+                            </f:snappedContent>
+                            <f:snappedTitleOnMobile>
+                                <Title text="{maindata>/EmployeeCode}" wrapping="true"/>
+                            </f:snappedTitleOnMobile>
+                            <f:actions>
+                                <ToolbarSpacer/>
+                                <VBox class="sapUiSmallMarginTop">
+                                    <ObjectAttribute title="Employee Name" text="{maindata>/profile/firstName} {maindata>/profile/lastName}"/>
+                                    <ObjectAttribute title="Date" text="{maindata>/currentDate}" />
+                                </VBox>
+                            </f:actions>
+                        </f:DynamicPageTitle>
+                    </f:title>
+                    <f:content>
+                        <f:FlexibleColumnLayout layout="OneColumn" id="FlexibleColumnLayoutTimesheet">
+                            <f:beginColumnPages>
+                                <Page showHeader="false">
+                                    <content>
+                                        <List id="idTimesheetList" items="{TimesheetDataEMP>/}" itemPress="onPressTimeSheetEntry" mode="SingleSelectMaster" selectionChange="onTimesheetSelect">
+                                            <headerToolbar >
+                                                <OverflowToolbar width="100%">
+                                                    <Title text="Timesheet Entry" wrapping="true"></Title>
+                                                    <ToolbarSpacer ></ToolbarSpacer>
+                                                    <Button icon="sap-icon://create-form" press="onPressCreateTimesheetEntry" id="onPressCreateTimesheetEntry" text="Add New Entry" type="Emphasized"></Button>
+                                                </OverflowToolbar>
+                                            </headerToolbar>
+                                            <noData>
+                                                <IllustratedMessage title="No Timesheet Entries Found" description="There are no timesheet records available. Please add a new entry." illustrationType="sapIllus-NoEntries">
+                                                </IllustratedMessage>
+                                            </noData>
+                                            <!-- <StandardListItem title="{TimesheetDataEMP>taskName}" description="{TimesheetDataEMP>date} - {TimesheetDataEMP>totalHours} hrs" type="Active"/> -->
+                                            <!-- <StandardListItem title="TimesheetDataEMP>taskName" description="TimesheetDataEMP>date- TimesheetDataEMP>totalHours hrs" type="Navigation" /> -->
+                                            <StandardListItem 
+                                            title="{TimesheetDataEMP>taskName}"
+                                            description="{TimesheetDataEMP>date} | {TimesheetDataEMP>totalHours} hrs" 
+                                            icon="{= ${TimesheetDataEMP>status} === 'Approve' ? 'sap-icon://sys-enter-2' : ${TimesheetDataEMP>status} === 'Reject' ? 'sap-icon://error' : 'sap-icon://pending'}" 
+                                            highlight="{= ${TimesheetDataEMP>status} === 'Approve' ? 'Success' : ${TimesheetDataEMP>status} === 'Reject' ? 'Error' : 'Warning'}" 
+                                            info="{= ${TimesheetDataEMP>status} === 'Approve' ? '✔ Approved' : ${TimesheetDataEMP>status} === 'Reject' ? '❌ Rejected' : '⏳ Pending'}"
+                                            infoState="{= ${TimesheetDataEMP>status} === 'Approve' ? 'Success' : ${TimesheetDataEMP>status} === 'Reject' ? 'Error' : 'Warning'}"
+                                            type="Active" />
+                                        </List>
+                                    </content>
+                                </Page>
+
+                            </f:beginColumnPages>
+
+                            <f:midColumnPages>
+                                <Page showHeader="false">
+                                    <content>
+
+                                        <layout:BlockLayout background="Dashboard">
+                                            <layout:BlockLayoutRow>
+                                                <layout:BlockLayoutCell >
+
+                                                    <layout:content>
+                                                        <!-- <Bar design="Header"> -->
+                                                        <OverflowToolbar design="Transparent" style="Clear">
+                                                            <Button icon="sap-icon://nav-back" press="onpressOneColumn" type="Ghost"></Button>
+                                                            <ToolbarSpacer ></ToolbarSpacer>
+                                                            <Title text="Timesheet Details" wrapping="true"></Title>
+                                                            <ToolbarSpacer ></ToolbarSpacer>
+
+                                                        </OverflowToolbar>
+
+                                                        <!-- </Bar> -->
+                                                        <form:SimpleForm id="SimpleFormDisplay354" editable="false" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                                                            <form:content>
+                                                                <Label design="Bold" text="Date"/>
+                                                                <Text text="{selectTimesheetData>/date}"/>
+
+                                                                <Label design="Bold" text="Start Time"/>
+                                                                <Text text="{selectTimesheetData>/startTime}"/>
+
+                                                                <Label design="Bold" text="End Time"/>
+                                                                <Text text="{selectTimesheetData>/endTime}"/>
+
+                                                                <Label design="Bold" text="Total Hours"/>
+                                                                <Text text="{selectTimesheetData>/totalHours} Hours"/>
+
+                                                                <Label design="Bold" text="Task Name"/>
+                                                                <Text text="{selectTimesheetData>/taskName}"/>
+
+                                                                <Label design="Bold" text="Client Name"/>
+                                                                <Text text="{selectTimesheetData>/ClintName}"/>
+
+                                                                <Label design="Bold" text="Comments"/>
+                                                                <Text text="{selectTimesheetData>/Comments}"/>
+
+                                                                <Label design="Bold" text="Status"/>
+                                                                <!-- <Text text="{selectTimesheetData>/status}"/> -->
+                                                                <ObjectStatus text="{selectTimesheetData>/status}" state="{= ${selectTimesheetData>/status} === 'Pending' ? 'Warning' : 
+                                     ${selectTimesheetData>/status} === 'Approve' ? 'Success' : 
+                                     ${selectTimesheetData>/status} === 'Reject' ? 'Error' : 'None' }" inverted="true"/>
+                                                            </form:content>
+                                                        </form:SimpleForm>
+                                                    </layout:content>
+                                                </layout:BlockLayoutCell>
+                                            </layout:BlockLayoutRow>
+                                        </layout:BlockLayout>
+                                    </content>
+                                </Page>
+                            </f:midColumnPages>
+                        </f:FlexibleColumnLayout>
+                    </f:content>
+                </f:DynamicPage>
+
+
+
+            </Page>
+        </pages>
+    </App>
+
+</mvc:View>

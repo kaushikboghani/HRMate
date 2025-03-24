@@ -1,0 +1,38 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout.form">
+    <Dialog id="idAddTimesheetDialog" title="Add New Timesheet Entry" stretch="false" draggable="true" titleAlignment="Center" resizable="true">
+        <content>
+
+                <l:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+
+                    <Label design="Bold" text="Date" />
+                    <DatePicker id="idTimesheetDate" liveChange="onChangeValue" showCurrentDateButton="true" value="{AddtimesheetData>/date}" valueFormat="yyyy-MM-dd" displayFormat="dd-MM-yyyy" />
+
+                    <Label design="Bold" text="Start Time" />
+                    <TimePicker id="idTimesheetStartTime" liveChange="onChangeValue" showCurrentTimeButton="true" value="{AddtimesheetData>/startTime}" />
+
+                    <Label design="Bold" text="End Time" />
+                    <TimePicker id="idTimesheetEndTime" liveChange="onChangeValue" showCurrentTimeButton="true" value="{AddtimesheetData>/endTime}" />
+
+                    <Label design="Bold" text="Total Hours" />
+                    <Input id="idTimesheetTotalHours" liveChange="onChangeValue" type="Number" value="{AddtimesheetData>/totalHours}" />
+
+                    <Label design="Bold" text="Task Name" />
+                    <Input id="idTimesheetTaskName" liveChange="onChangeValue" value="{AddtimesheetData>/taskName}" />
+
+                    <Label design="Bold" text="Client Name" />
+                    <Input id="idTimesheetClientName" liveChange="onChangeValue" value="{AddtimesheetData>/ClintName}" />
+
+                    <Label design="Bold" text="Comments" />
+                    <TextArea id="idTimesheetComments" liveChange="onChangeValue" rows="3" value="{AddtimesheetData>/Comments}" />
+                </l:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="Submit" type="Ghost" press="onSubmitTimesheetEntry" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press="onPressCloseDialog" type="Reject"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

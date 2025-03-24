@@ -1,0 +1,420 @@
+<mvc:View xmlns:form="sap.ui.layout.form"
+    xmlns:unified="sap.ui.unified"
+    xmlns:uxap="sap.uxap"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.f" controllerName="hrmate.controller.Admin"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns="sap.m">
+
+    <App>
+        <pages>
+            <Page showHeader="false">
+
+                <f:DynamicPage>
+                    <f:title>
+                        <f:DynamicPageTitle>
+                            <f:heading>
+                                <HBox>
+                                    <Title text="Employees Data" level="H1" class="header" wrapping="true"></Title>
+                                </HBox>
+                            </f:heading>
+                            <f:snappedHeading>
+                                <FlexBox fitContainer="true" alignItems="Center">
+                                    <Avatar src="sap-icon://key-user-settings" class="sapUiTinyMarginEnd"/>
+                                </FlexBox>
+                            </f:snappedHeading>
+                            <f:snappedTitleOnMobile>
+                                <Title text="Manage Employee Data" wrapping="true"/>
+                            </f:snappedTitleOnMobile>
+                            <f:expandedHeading>
+                                <FlexBox>
+                                    <items>
+                                        <Avatar src="sap-icon://key-user-settings" class="sapUiTinyMarginEnd"/>
+                                        <Title text="Employees Data" wrapping="true" class="sapUiSmallMarginTop" />
+                                    </items>
+                                </FlexBox>
+                            </f:expandedHeading>
+
+                            <f:actions>
+                                <MenuButton icon="sap-icon://action" tooltip="action">
+                                    <Menu>
+                                        <MenuItem text="Send E-Mail" icon="sap-icon://email" press="onEmailButtonPress"></MenuItem>
+                                        <MenuItem text="Save as Tile" icon="sap-icon://add-favorite" press="onFavouritefirst"></MenuItem>
+                                    </Menu>
+                                </MenuButton>
+                            </f:actions>
+                            <f:expandedContent>
+                                <Label id="expandedLabel" text="" />
+                            </f:expandedContent>
+                            <f:snappedContent>
+                                <Label id="snappedLabl" text="" />
+                            </f:snappedContent>
+                        </f:DynamicPageTitle>
+                    </f:title>
+                    <f:header>
+                        <f:DynamicPageHeader>
+                            <f:content>
+
+                                <fb:FilterBar id="filterbar" showClearOnFB="true" showFilterConfiguration="false" persistencyKey="myPersKey" useToolbar="false" search="onGoFilter" clear="onClearFilter">
+                                    <fb:filterGroupItems>
+
+                                        <fb:FilterGroupItem name="EmployeeCode" label="Employee Code" groupName="Group1" visibleInFilterBar="true">
+                                            <fb:control>
+                                                <SearchField liveChange="onSearchfield" placeholder="Search by Employee Code" id="onSearchbarEmployee"/>
+                                            </fb:control>
+                                        </fb:FilterGroupItem>
+
+                                        <fb:FilterGroupItem name="firstName" label="First Name" groupName="Group1" visibleInFilterBar="true">
+                                            <fb:control>
+                                                <Input id="FirstNameInput" value="{FilterModel>/FirstName}" showValueHelp="true" valueHelpRequest="onValueHelpRequest"/>
+                                            </fb:control>
+                                        </fb:FilterGroupItem>
+
+                                        <fb:FilterGroupItem name="lastName" label="Last Name" groupName="Group1" visibleInFilterBar="true">
+                                            <fb:control>
+                                                <Input id="LastNameInput" value="{FilterModel>/LastName}" showValueHelp="true" valueHelpRequest="onValueHelpRequest"/>
+                                            </fb:control>
+                                        </fb:FilterGroupItem>
+
+                                        <fb:FilterGroupItem name="Email" label="E-mail" groupName="Group1" visibleInFilterBar="true">
+                                            <fb:control>
+                                                <Input id="EmailInput" value="{FilterModel>/Email}" showValueHelp="true" valueHelpRequest="onValueHelpRequest"/>
+                                            </fb:control>
+                                        </fb:FilterGroupItem>
+
+                                        <fb:FilterGroupItem name="Designation" label="Designation" groupName="Group1" visibleInFilterBar="true">
+                                            <fb:control>
+                                                <Input id="DesignationInput" value="{FilterModel>/Designation}" showValueHelp="true" valueHelpRequest="onValueHelpRequest"/>
+                                            </fb:control>
+                                        </fb:FilterGroupItem>
+
+                                    </fb:filterGroupItems>
+                                </fb:FilterBar>
+
+                            </f:content>
+                        </f:DynamicPageHeader>
+                    </f:header>
+                    <f:content>
+
+
+                        <IconTabBar backgroundDesign="Solid" expandable="false" headerBackgroundDesign="Solid" select="onSelectIconTabFilter">
+                            <items>
+
+                                <IconTabFilter text="Employees Data" key="EmployeesData">
+                                    <content>
+
+                                        <Table inset="true" id="EMPData" items="{EMPData>/}" sticky="ColumnHeaders" >
+                                            <headerToolbar>
+                                                <OverflowToolbar>
+                                                    <content>
+                                                        <ToolbarSpacer ></ToolbarSpacer>
+                                                        <Button text="Add" type="Emphasized" icon="sap-icon://add" press="onAddEMP"></Button>
+                                                        <Button text="Delete" type="Reject" icon="sap-icon://delete" press="onDeleteEMPDetails"></Button>
+                                                        <!-- <ToggleButton text="Edit Mode" icon="sap-icon://edit" enabled="true" pressed="false" type="Emphasized" press="OnEditModePress" /> -->
+                                                    </content>
+                                                </OverflowToolbar>
+                                            </headerToolbar>
+                                            <noData>
+                                                <IllustratedMessage title="No Employee Data" ariaTitleLevel="H1" description="There are no employee records available." illustrationType="sapIllus-AddPeople">
+                                                </IllustratedMessage>
+                                            </noData>
+
+
+                                            <columns>
+                                                <Column >
+                                                    <Title text="EMPLOYEE CODE" wrapping="true"></Title>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Left">
+                                                    <Title text="First Name" wrapping="true"></Title>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Left">
+                                                    <Title text="Last Name" wrapping="true"></Title>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                                    <Title text="E-mail" wrapping="true"></Title>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                                    <Title text="Designation" wrapping="true"></Title>
+                                                </Column>
+                                            </columns>
+                                            <items>
+                                                <ColumnListItem press="onPressDetailsEMP" type="Navigation">
+                                                    <Title text="{EMPData>EmployeeCode}" wrapping="true"></Title>
+                                                    <Text text="{EMPData>profile/firstName}"></Text>
+                                                    <Text text="{EMPData>profile/lastName}"></Text>
+                                                    <Text text="{EMPData>profile/Email}"></Text>
+                                                    <Text text="{EMPData>profile/Designation}"></Text>
+
+                                                </ColumnListItem>
+                                            </items>
+                                        </Table>
+                                    </content>
+                                </IconTabFilter>
+                                <IconTabFilter text="Add Calender " key="AddCalender">
+
+                                    <layout:BlockLayout background="Dashboard">
+                                        <layout:BlockLayoutRow>
+                                            <layout:BlockLayoutCell>
+                                                <unified:CalendarLegend id="addlLegend">
+                                                    <unified:items>
+                                                        <unified:CalendarLegendItem type="Type06" text="HoliDay" color="#87CEEB"></unified:CalendarLegendItem>
+                                                    </unified:items>
+                                                </unified:CalendarLegend>
+                                                <unified:Calendar id="AddCalendor" width="100%" select="onSelectAddDate" showWeekNumbers="false" nonWorkingDays="0"></unified:Calendar>
+                                            </layout:BlockLayoutCell>
+                                            <layout:BlockLayoutCell>
+                                                <form:SimpleForm id="dayDetailsForm" editable="false" layout="ResponsiveGridLayout" title="Add Day Details" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                                                    <form:content>
+                                                        <Label text="Date" design="Bold"></Label>
+                                                        <Input value="{addDateTypeModel>/date}" editable="false" id="addDateInput"></Input>
+
+                                                        <Label text="Day Type" design="Bold"></Label>
+                                                        <Select selectedKey="{addDateTypeModel>/type}" id="adddateselect" forceSelection="false">
+                                                            <items>
+                                                                <core:Item text="Non-Working Day" key="Non-Working Day"></core:Item>
+                                                                <core:Item text="Working-Day" key="Working-Day"></core:Item>
+                                                                <core:Item text="HoliDay" key="HoliDay"></core:Item>
+                                                            </items>
+                                                        </Select>
+
+                                                        <Label text="Day Name" design="Bold"></Label>
+                                                        <Input value="{addDateTypeModel>/name}" id="addDateNameInput"></Input>
+                                                        <Button type="Emphasized" text="Add" press="OndateTypeAdd" icon="sap-icon://add"></Button>
+                                                    </form:content>
+                                                </form:SimpleForm>
+                                            </layout:BlockLayoutCell>
+                                        </layout:BlockLayoutRow>
+
+                                    </layout:BlockLayout>
+                                </IconTabFilter>
+                                <IconTabFilter id="LeaveRequestsTab" text="Leave Requests" key="LeaveRequests">
+                                    <content>
+                                        <Table id="LeaveRequestTable" items="{LeaveRequestData>/}" sticky="ColumnHeaders" >
+                                            <headerToolbar >
+                                                <OverflowToolbar width="100%">
+                                                    <content>
+                                                        <SearchField width="15rem" placeholder="Search by Employee Code" liveChange="onSearchLeaveRequests"/>
+                                                        <ToolbarSpacer/>
+                                                        <Select id="leaveFilter" change="onFilterLeaveRequests">
+                                                            <items>
+                                                                <core:Item key="All" text="All"/>
+                                                                <core:Item key="Pending" text="Pending"/>
+                                                                <core:Item key="Approve" text="Approved"/>
+                                                                <core:Item key="Reject" text="Rejected"/>
+                                                            </items>
+                                                        </Select>
+                                                    </content>
+                                                </OverflowToolbar>
+                                            </headerToolbar>
+                                            <noData>
+                                                <IllustratedMessage title="No Leave Requests" ariaTitleLevel="H1" description="No leave requests found." illustrationType="sapIllus-NoEntries">
+                                                </IllustratedMessage>
+                                            </noData>
+                                            <columns>
+                                                <Column>
+                                                    <Text text="EMPLOYEE CODE"/>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <Text text="Employee Name"/>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <Text text="Leave Type"/>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <Text text="Start Date"/>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <Text text="Start Date Day Type"/>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <Text text="End Date"/>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <Text text="End Date Day Type"/>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <Text text="Number Of Day"/>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <Text text="Status"/>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <Text text="Actions"/>
+                                                </Column>
+                                            </columns>
+                                            <items>
+                                                <ColumnListItem>
+                                                    <Title text="{LeaveRequestData>employeecode}" wrapping="true"/>
+                                                    <Text text="{LeaveRequestData>firstName} {LeaveRequestData>lastName}"/>
+                                                    <Text text="{LeaveRequestData>LeaveType}"/>
+                                                    <Text text="{LeaveRequestData>FromDate}"/>
+                                                    <Text text="{LeaveRequestData>FromDateDayType}"/>
+                                                    <Text text="{LeaveRequestData>ToDate}"/>
+                                                    <Text text="{LeaveRequestData>ToDateDayType}"/>
+                                                    <Text text="{LeaveRequestData>TotalLeaveDay}"/>
+                                                    <ObjectStatus text="{LeaveRequestData>stat}" state="{= ${LeaveRequestData>stat} === 'Pending' ? 'Warning' : 
+                ${LeaveRequestData>stat} === 'Approve' ? 'Success' : 
+                ${LeaveRequestData>stat} === 'Reject' ? 'Error' : 'None' }" inverted="true"/>
+
+                                                    <VBox>
+                                                        <Button text="Approve" icon="sap-icon://accept" type="Accept" press="handleLeaveAction" visible="{= ${LeaveRequestData>stat} === 'Pending' }"/>
+                                                        <Button text="Reject" icon="sap-icon://decline" type="Reject" press="handleLeaveAction" visible="{= ${LeaveRequestData>stat} === 'Pending' }"/>
+                                                    </VBox>
+                                                </ColumnListItem>
+                                            </items>
+                                        </Table>
+                                    </content>
+                                </IconTabFilter>
+
+
+                                <IconTabFilter id="AttedenceRegularizationTab" text="Attedence Regularization" key="AttedenceRegularization">
+                                    <content>
+                                        <Table id="AttedenceRegularizationDataTable" items="{AttedenceRegularizationEMPData>/}" sticky="ColumnHeaders"  noDataText="No attendance regularization requests found.">
+                                            <headerToolbar >
+                                                <OverflowToolbar width="100%">
+                                                    <content>
+                                                        <SearchField width="15rem" placeholder="Search by Employee Code" liveChange="onSearchAttedenceRegularizationEMPData"/>
+                                                        <ToolbarSpacer/>
+                                                        <Select id="AttedenceRegularizationFilter" change="onFilterAttedenceRegularizationEMPData" width="11rem" wrapItemsText="true">
+                                                            <items>
+                                                                <core:Item key="All" text="All"/>
+                                                                <core:Item key="Pending" text="Pending"/>
+                                                                <core:Item key="Approve" text="Approved"/>
+                                                                <core:Item key="Reject" text="Rejected"/>
+                                                            </items>
+                                                        </Select>
+                                                    </content>
+                                                </OverflowToolbar>
+                                            </headerToolbar>
+                                            <noData>
+                                                <IllustratedMessage title="No Attendance Requests" ariaTitleLevel="H1" description="No attendance regularization requests available." illustrationType="sapIllus-EmptyCalendar">
+                                                </IllustratedMessage>
+                                            </noData>
+                                            <columns>
+                                                <Column>
+                                                    <Text text="Employee Code"/>
+                                                </Column>
+                                                <Column>
+                                                    <Text text="Regularization Type"/>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <Text text="Date"/>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <Text text="Correct Punch In Time"/>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <Text text="Correct Punch Out Time"/>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <Text text="Reason"/>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <Text text="Status"/>
+                                                </Column>
+                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <Text text="Action"/>
+                                                </Column>
+
+                                            </columns>
+                                            <items>
+                                                <ColumnListItem>
+                                                    <Title text="{AttedenceRegularizationEMPData>employeecode}" wrapping="true"/>
+                                                    <Text text="{AttedenceRegularizationEMPData>RegularizationType}"/>
+                                                    <Text text="{AttedenceRegularizationEMPData>RegularizationDate}"/>
+                                                    <Text text="{AttedenceRegularizationEMPData>RegularizationPunchInTime}"/>
+                                                    <Text text="{AttedenceRegularizationEMPData>RegularizationPunchOutTime}"/>
+                                                    <Text text="{AttedenceRegularizationEMPData>Reason}"/>
+                                                    <ObjectStatus text="{AttedenceRegularizationEMPData>RegularizationStatus}" state="{= ${AttedenceRegularizationEMPData>RegularizationStatus} === 'Pending' ? 'Warning' : 
+                ${AttedenceRegularizationEMPData>RegularizationStatus} === 'Approve' ? 'Success' : 
+                ${AttedenceRegularizationEMPData>RegularizationStatus} === 'Reject' ? 'Error' : 'None' }" inverted="true"/>
+
+                                                    <VBox>
+                                                        <Button text="Approve" icon="sap-icon://accept" type="Accept" press="handleAttedenceRegularization" visible="{= ${AttedenceRegularizationEMPData>RegularizationStatus} === 'Pending' }"/>
+                                                        <Button text="Reject" icon="sap-icon://decline" type="Reject" press="handleAttedenceRegularization" visible="{= ${AttedenceRegularizationEMPData>RegularizationStatus} === 'Pending' }"/>
+                                                    </VBox>
+                                                </ColumnListItem>
+                                            </items>
+                                        </Table>
+                                    </content>
+                                </IconTabFilter>
+
+                                <IconTabFilter id="TimeSheetTab" text="TimeSheet" key="TimeSheet">
+                                    <content>
+                                        <Table id="TimeSheetDataTable" items="{TimeSheetAllData>/}" sticky="ColumnHeaders"  noDataText="No attendance regularization requests found.">
+                                            <headerToolbar >
+                                                <OverflowToolbar width="100%">
+                                                    <content>
+                                                        <SearchField width="15rem" placeholder="Search by Employee Code" liveChange="onSearchTimeSheetAllDataEMPData"/>
+                                                        <ToolbarSpacer/>
+                                                        <Select id="TimeSheetAllDataFilter" change="onFilterAttedenceRegularizationEMPData" width="11rem" wrapItemsText="true">
+                                                            <items>
+                                                                <core:Item key="All" text="All"/>
+                                                                <core:Item key="Pending" text="Pending"/>
+                                                                <core:Item key="Approve" text="Approved"/>
+                                                                <core:Item key="Reject" text="Rejected"/>
+                                                            </items>
+                                                        </Select>
+                                                    </content>
+                                                </OverflowToolbar>
+                                            </headerToolbar>
+                                            <noData>
+                                                <IllustratedMessage title="No TimeSheet Requests" ariaTitleLevel="H1" description="No TimeSheet requests available." illustrationType="sapIllus-EmptyCalendar">
+                                                </IllustratedMessage>
+                                            </noData>
+                                            <columns>
+                                                <Column>
+                                                    <Title text="Employee Code"/>
+                                                </Column>
+                                                <Column>
+                                                    <Text text="Date"/>
+                                                </Column>
+                                                <Column>
+                                                    <Text text="Task Name"/>
+                                                </Column>
+                                                <Column>
+                                                    <Text text="More"/>
+                                                </Column>
+                                                <Column>
+                                                    <Text text="Status"/>
+                                                </Column>
+                                                <Column>
+                                                    <Text text="Action"/>
+                                                </Column>
+
+                                            </columns>
+                                            <items>
+                                                <ColumnListItem>
+                                                    <Title text="{TimeSheetAllData>employeecode}" wrapping="true"/>
+                                                    <Text text="{TimeSheetAllData>date}"/>
+                                                    <Text text="{TimeSheetAllData>taskName}"/>
+                                                    <HBox>
+                                                        <Link text="More" emphasized="true"  press="onPressMoreTimeSheetData"/>
+                                                    </HBox>
+                                                    <ObjectStatus text="{TimeSheetAllData>status}" state="{= ${TimeSheetAllData>status} === 'Pending' ? 'Warning' : 
+                                     ${TimeSheetAllData>status} === 'Approve' ? 'Success' : 
+                                     ${TimeSheetAllData>status} === 'Reject' ? 'Error' : 'None' }" inverted="true"/>
+                                                    <VBox>
+                                                        <Button text="Approve" icon="sap-icon://accept" type="Accept" press="handleTimesheetEntry" visible="{= ${TimeSheetAllData>status} === 'Pending' }"/>
+                                                        <Button text="Reject" icon="sap-icon://decline" type="Reject" press="handleTimesheetEntry" visible="{= ${TimeSheetAllData>status} === 'Pending' }"/>
+                                                    </VBox>
+                                                </ColumnListItem>
+                                            </items>
+                                        </Table>
+                                    </content>
+                                </IconTabFilter>
+
+
+                            </items>
+                        </IconTabBar>
+                    </f:content>
+                </f:DynamicPage>
+
+
+            </Page>
+        </pages>
+    </App>
+
+</mvc:View>

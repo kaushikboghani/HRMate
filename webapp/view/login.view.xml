@@ -1,0 +1,60 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core" controllerName="hrmate.controller.login" displayBlock="true">
+
+    <Page showHeader="false" class="loginPage" enableScrolling="false">
+        <content>
+            <!-- Animated Background -->
+            <core:HTML content=" &lt;ul class=&quot;circles&quot;&gt;
+                &lt;li&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;/li&gt;
+                &lt;/ul&gt;"></core:HTML>
+
+            <FlexBox alignContent="Center" alignItems="Center" justifyContent="Center" width="100%" height="100%">
+            <!-- class="sapUiLargeMargin" -->
+                    <VBox class="glassMorph" justifyContent="Center" alignItems="Center">
+                        <VBox class="sapUiSmallMargin" justifyContent="Center" alignItems="Center">
+                                <VBox alignContent="Center" alignItems="Center" justifyContent="SpaceBetween" width="90%">
+                                    <Image  width="13rem" id="ImageIdLogin"/>
+                                    <!-- <HBox class="sapUiTinyMarginBottom titleBorder"></HBox> -->
+                                    <VBox  class="sapUiSmallMargin" width="90%">
+                                        <Label text="User ID" design="Bold" required="true"  showColon="true" class="whiteText"></Label>
+                                        <Input id="sUserID" required="true"  placeholder="User ID" type="Email" autocomplete="true" liveChange="onKeyPress"/>
+                                    </VBox>
+                                    <VBox width="90%" >
+                                        <Label text="Password" design="Bold" required="true"  showColon="true" class="whiteText"></Label>
+                                        <Input id="SuserPassword" required="true" placeholder="Password"  liveChange="onKeyPress" type="Password" autocomplete="true" />
+                                    </VBox>
+
+                                    <!-- <VBox width="90%" >
+                                        <Label text="Password" design="Bold" required="true"  showColon="true" class="whiteText"></Label>
+                                        <Input id="SuserPassword" required="true" placeholder="Password" type="Password" autocomplete="false" />
+                                    </VBox> -->
+                                </VBox>
+
+                                <VBox class="sapUiTinyMargin" alignContent="Center" alignItems="Center" justifyContent="SpaceBetween">
+                                    <Button id="idButtonLogin" text="Login" width="7rem" type="Emphasized" icon="sap-icon://visits" iconFirst="false" press="onLogin" />
+                                    <ObjectStatus text="Forget Password?"   press="onForgetPassword"  class="sapUiTinyMarginTop"  icon="sap-icon://key"  state="Indication01" active="true" />
+                                </VBox>
+
+                                <HBox displayInline="true" justifyContent="Center" class="sapUiMediumMarginTop">
+                                    <Text textAlign="Center" text="Developed by Daffodils Info Solutions Private Limited" class="whiteText"/>
+                                </HBox>
+
+                                <VBox class="sapUiTinyMargin" justifyContent="Center" alignItems="Center">
+                                    <Text textAlign="Center" text="© 2025 - All RIGHTS RESERVED." class="whiteText"/>
+                                </VBox>
+                            </VBox>
+                    </VBox>
+            </FlexBox>
+        </content>
+    </Page>
+</mvc:View>

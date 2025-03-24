@@ -1,0 +1,236 @@
+<mvc:View xmlns:uxap="sap.uxap"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.f" controllerName="hrmate.controller.Payslip"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns:card="sap.f.cards"
+    xmlns:u="sap.suite.ui.commons"
+    xmlns:lab="it.designfuture.chartjs"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:m="sap.m">
+    <m:Page title="Payslip" showHeader="false">
+
+        <f:DynamicPage id="dynamicPageLeaveBalanc" preserveHeaderStateOnScroll="true" showFooter="true" fitContent="true">
+            <f:title>
+                <f:DynamicPageTitle>
+                    <f:heading>
+                        <m:Title text="Payslip" wrapping="true" />
+                    </f:heading>
+                    <f:expandedContent>
+                        <m:Label design="Bold" text="{maindata>/EmployeeCode}"/>
+                    </f:expandedContent>
+                    <f:snappedContent>
+                        <m:Label design="Bold" text="{maindata>/EmployeeCode}"/>
+                    </f:snappedContent>
+                    <f:snappedTitleOnMobile>
+                        <m:Title text="{maindata>/EmployeeCode}" wrapping="true"/>
+                    </f:snappedTitleOnMobile>
+                    <f:actions>
+                        <m:ToolbarSpacer/>
+                        <m:VBox class="sapUiSmallMarginTop">
+                            <m:ObjectAttribute title="Employee Name" text="{maindata>/profile/firstName} {maindata>/profile/lastName}"/>
+                            <m:ObjectAttribute title="Applied Date" text="{maindata>/currentDate}" />
+                        </m:VBox>
+                    </f:actions>
+                </f:DynamicPageTitle>
+            </f:title>
+            <f:content>
+                <l:Grid defaultSpan="XL6 L6 M12 S12" class="sapUiTinyMarginTop">
+                    <f:Card height="37vh" class="sapUiTinyMarginTop">
+                        <f:layoutData>
+                            <l:GridData span="XL6 L6 M12 S12" />
+                        </f:layoutData>
+                        <f:content>
+                            <u:ChartContainer title="Basic Salary Overview" showFullScreen="true" showZoom="false" autoAdjustHeight="true" showLegendButton="true" showLegend="true" contentChange="onContentChange1">
+                                <u:content>
+                                    <u:ChartContainerContent id="duebyagec1" icon="sap-icon://horizontal-bar-chart-2">
+                                        <u:content>
+                                            <viz:VizFrame id="payslipTrend" vizType="column" vizProperties='{
+        "title": { 
+            "visible": false 
+        }, 
+        "dataLabel": { 
+            "visible": false, 
+            "showTotal": false 
+        }
+    }' selectData="select">
+                                                <viz:dataset>
+                                                    <viz.data:FlattenedDataset data="{paySlipdata>/}">
+                                                        <viz.data:dimensions>
+                                                            <viz.data:DimensionDefinition name="Month" value="{paySlipdata>Month}" />
+                                                        </viz.data:dimensions>
+                                                        <viz.data:measures>
+                                                            <viz.data:MeasureDefinition name="Basic Salary" value="{paySlipdata>BasicSalary}" />
+                                                            <viz.data:MeasureDefinition name="Net Salary" value="{paySlipdata>NetSalary}" />
+                                                        </viz.data:measures>
+                                                    </viz.data:FlattenedDataset>
+                                                </viz:dataset>
+
+                                                <viz:feeds>
+                                                    <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Month" />
+                                                    <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Basic Salary" />
+                                                    <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Net Salary" />
+                                                </viz:feeds>
+                                            </viz:VizFrame>
+                                        </u:content>
+                                    </u:ChartContainerContent>
+                                </u:content>
+                            </u:ChartContainer>
+                        </f:content>
+                    </f:Card>
+                    <f:Card height="37vh" class="sapUiTinyMarginTop">
+
+                        <f:layoutData>
+                            <l:GridData span="XL6 L6 M12 S12" />
+                        </f:layoutData>
+                        <f:content>
+                            <u:ChartContainer title="Yearly Deductions" showFullScreen="true" showZoom="false" autoAdjustHeight="true" showLegendButton="true" showLegend="true">
+                                <u:content>
+                                    <u:ChartContainerContent icon="sap-icon://donut-chart" title="Deductions YTD">
+                                        <u:content>
+                                            <viz:VizFrame id="deductionsChart" vizType="donut" selectData="onDeductionsSelect" vizProperties='{
+        "title": { 
+            "visible": false 
+        }, 
+        "dataLabel": { 
+            "visible": true, 
+            "showTotal": false 
+        }
+    }'>
+
+                                                <viz:dataset>
+                                                    <viz.data:FlattenedDataset data="{TotalDeductions>/}">
+                                                        <viz.data:dimensions>
+                                                            <viz.data:DimensionDefinition name="Deduction Type" value="{TotalDeductions>Type}" />
+                                                        </viz.data:dimensions>
+                                                        <viz.data:measures>
+                                                            <viz.data:MeasureDefinition name="Amount" value="{TotalDeductions>Amount}" />
+                                                        </viz.data:measures>
+                                                    </viz.data:FlattenedDataset>
+                                                </viz:dataset>
+
+                                                <viz:feeds>
+                                                    <viz.feeds:FeedItem uid="size" type="Measure" values="Amount" />
+                                                    <viz.feeds:FeedItem uid="color" type="Dimension" values="Deduction Type" />
+                                                </viz:feeds>
+                                            </viz:VizFrame>
+                                        </u:content>
+                                    </u:ChartContainerContent>
+                                </u:content>
+                            </u:ChartContainer>
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card class="sapUiTinyMarginTop" height="auto">
+                        <f:header>
+                            <card:Header title="Payslip Details" />
+                        </f:header>
+                        <f:layoutData>
+                            <l:GridData span="XL6 L6 M12 S12"/>
+                        </f:layoutData>
+
+
+
+
+                        <f:content>
+                            <m:VBox class="sapUiSmallMargin" width="100%">
+
+
+                                <!-- <m:Title text="Payslip Details" class="sapUiSmallMarginTop" titleStyle="H5" level="H5"></m:Title> -->
+
+                                <m:HBox justifyContent="Start" width="100%" class="sapUiTinyMargin">
+                                    <m:Label design="Bold" text="Gross Earning" showColon="true"/>
+                                    <m:Text text="paySlipdata>grossEarning" class="sapUiSmallMarginBegin" />
+
+                                </m:HBox>
+                                <m:HBox justifyContent="Start" width="100%" class="sapUiTinyMargin">
+                                    <m:Label design="Bold" text="Deductions" showColon="true" />
+                                    <m:Text text="paySlipdata>deductions" class="sapUiSmallMarginBegin"/>
+                                </m:HBox>
+                                <m:HBox justifyContent="Start" width="100%" class="sapUiTinyMargin">
+                                    <m:Label design="Bold" text="LOP/LWP" showColon="true"/>
+                                    <m:Text text="paySlipdata>lopLwp" class="sapUiSmallMarginBegin"/>
+                                </m:HBox>
+                                <m:HBox justifyContent="SpaceBetween" width="100%" class="sapUiTinyMargin">
+                                    <m:HBox>
+                                        <m:Label design="Bold" text="Net Earning" showColon="true"/>
+                                        <m:Text text="{paySlipdata>netEarning}" class="sapUiSmallMarginBegin"/>
+                                    </m:HBox>
+                                    <m:Button text="Download Payslip" icon="sap-icon://download" press="onDownloadPayslip"/>
+                                </m:HBox>
+
+
+
+
+                            </m:VBox>
+                        </f:content>
+
+
+
+
+
+
+
+
+                    </f:Card>
+
+                    <!-- Fourth Card: Yearly Summary using SimpleForm -->
+                    <f:Card height="auto" class="sapUiTinyMarginTop">
+                        <f:header>
+                            <card:Header title="Yearly Summary" />
+                        </f:header>
+                        <f:layoutData>
+                            <l:GridData span="XL6 L6 M12 S12"/>
+                        </f:layoutData>
+                        <f:content>
+                            <m:VBox class="sapUiSmallMargin" width="100%">
+                                <!-- <m:Title text="Full Year Summary" level="H3"/> -->
+                                <!-- <form:SimpleForm editable="false" layout="ResponsiveGridLayout"> -->
+                                <m:HBox justifyContent="Start" width="100%" class="sapUiTinyMargin">
+                                    <m:Label text="Total Earnings" design="Bold" showColon="true"/>
+                                    <!-- <m:Text text="{YearlyDeductions>/TotalEarnings}" class="sapUiSmallMarginBegin"/> -->
+                                    <m:ObjectStatus text="{YearlyDeductions>/TotalEarnings}" state="Success" class="sapUiSmallMarginBegin"/>
+                                </m:HBox >
+                                <m:HBox justifyContent="Start" width="100%" class="sapUiTinyMargin">
+                                    <m:Label text="Total Deductions" design="Bold" showColon="true"/>
+                                    <!-- <m:Text text="{YearlyDeductions>/TotalDeductions}" class="sapUiSmallMarginBegin"/> -->
+                                    <m:ObjectStatus text="{YearlyDeductions>/TotalDeductions}" state="Error" class="sapUiSmallMarginBegin"/>
+                                </m:HBox>
+                                <m:HBox justifyContent="Start" width="100%" class="sapUiTinyMargin">
+                                    <m:Label text="Bonuses" design="Bold" showColon="true"/>
+                                    <!-- <m:Text text="{YearlyDeductions>/TotalBonuses}" class="sapUiSmallMarginBegin"/> -->
+                                    <m:ObjectStatus text="{YearlyDeductions>/TotalBonuses}" state="Warning" class="sapUiSmallMarginBegin"/>
+                                </m:HBox>
+                                <m:HBox justifyContent="Start" width="100%" class="sapUiTinyMargin">
+                                    <m:Label text="Net Pay" design="Bold" showColon="true"/>
+                                    <!-- <m:Text text="{YearlyDeductions>/TotalNetPay}" class="sapUiSmallMarginBegin"/> -->
+                                    <m:ObjectStatus text="{YearlyDeductions>/TotalNetPay}" state="None" class="sapUiSmallMarginBegin"/>
+                                </m:HBox>
+                                <!-- </form:SimpleForm> -->
+                            </m:VBox>
+                            <!-- <m:Title text="Full Year Summary" level="H3"/> -->
+
+                        </f:content>
+                    </f:Card>
+                </l:Grid>
+
+
+            </f:content>
+        </f:DynamicPage>
+
+
+
+
+
+
+
+
+
+
+
+    </m:Page>
+</mvc:View>

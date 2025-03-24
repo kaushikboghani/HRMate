@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <ResponsivePopover resizable="true" title="Guidelines for Editing And Deleting Data" placement="Bottom" >
+        <content>
+            <VBox alignItems="Center" class="sapUiSmallMargin">
+                <Title text="{= ${isVisible>/visible} ? 'Leave Guidelines' : 'Deduction Guidelines'}" level="H2" class="sapUiTinyMarginBottom"/>
+                <Text text="{= ${isVisible>/visible} 
+                    ? '✔ To edit leave data, select the data in the chart and post it.Only then will the data be edited.' 
+                    : '✔ To edit deduction data, select the data in the chart and post it.Only then will the data be edited.'}" 
+                    class="sapUiSmallMarginBottom"/>
+                <Text text="{= ${isVisible>/visible} 
+                    ? '❌ To delete leave data, select the data in the chart and delete it.' 
+                    : '❌ To delete deduction data, select the data in the chart and delete it.'}" 
+                    class="sapUiSmallMarginBottom"/>
+
+                <!-- <Button text="Got it" press=".onClosePopover" type="Emphasized"/> -->
+            </VBox>
+        </content>
+    </ResponsivePopover>
+
+</core:FragmentDefinition>

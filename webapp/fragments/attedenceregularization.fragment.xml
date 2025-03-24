@@ -1,0 +1,44 @@
+<core:FragmentDefinition xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified">
+
+    <Dialog title="Attendance Regularization Request" titleAlignment="Center">
+        <content>
+            <form:SimpleForm id="idAttendanceRegularizationForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+
+                <form:content>
+
+                    <Label design="Bold" text="Regularization Type" required="true"/>
+                    <Select id="idRegularizationType" selectedKey="{RegularizationForm>/RegularizationType}" forceSelection="false"  change="onChangeValue">
+                        <items>
+                            <core:Item key="Missed Punch In" text="Missed Punch In"/>
+                            <core:Item key="Missed Punch Out" text="Missed Punch Out"/>
+                            <core:Item key="Missed Both" text="Missed Both"/>
+                        </items>
+                    </Select>
+
+                    <Label design="Bold" text="Date" required="true"/>
+                    <DatePicker id="idDate" value="{RegularizationForm>/RegularizationDate}" displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-dd" change="onChangeValue"/>
+
+                    <Label design="Bold" text="Correct Punch In Time"/>
+                    <TimePicker id="idPunchInTime" value="{RegularizationForm>/RegularizationPunchInTime}" enabled="{= ${RegularizationForm>/RegularizationType} === 'Missed Punch In' || ${RegularizationForm>/RegularizationType} === 'Missed Both' }"  change="onChangeValue"/>
+
+                    <Label design="Bold" text="Correct Punch Out Time"/>
+                    <TimePicker id="idPunchOutTime" value="{RegularizationForm>/RegularizationPunchOutTime}" enabled="{= ${RegularizationForm>/RegularizationType} === 'Missed Punch Out' || ${RegularizationForm>/RegularizationType} === 'Missed Both' }"  change="onChangeValue"/>
+
+                    <Label design="Bold" text="Reason" required="true"/>
+                    <TextArea id="idReason" rows="3" placeholder="Enter reason for correction..." liveChange="onChangeValue" value="{RegularizationForm>/Reason}"/>
+
+                </form:content>
+            </form:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="Cancel" type="Reject" press="onPressCloseDialog"/>
+        </beginButton>
+        <endButton>
+            <Button text="Submit Request" type="Emphasized" press="onSubmitRegularization"/>
+        </endButton>
+    </Dialog>
+
+</core:FragmentDefinition>

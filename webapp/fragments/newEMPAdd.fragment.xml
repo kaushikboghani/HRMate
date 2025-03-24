@@ -1,0 +1,179 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form">
+    <Dialog id="wizardDialog" resizable="true" showHeader="false" verticalScrolling="false" contentHeight="100%" contentWidth="35%">
+        <content>
+            <f:DynamicPage showFooter="true">
+                <f:title>
+                    <f:DynamicPageTitle>
+                        <f:heading>
+                            <Title text="Add Employee Details"/>
+                        </f:heading>
+                    </f:DynamicPageTitle>
+                </f:title>
+                <f:content>
+                    <Wizard id="CreateProductWizard" showNextButton="false" navigationChange="handleNavigationChange" renderMode="Page">
+
+                        <!-- Step 1: Personal Information -->
+                        <WizardStep title="Personal Information" id="firstStep" icon="sap-icon://employee" complete="step1Completed">
+                            <form:SimpleForm layout="ResponsiveGridLayout">
+                                <form:content>
+
+
+                                    <Label text="Employee Code" required="true"/>
+                                    <Input id="EmployeeCodeID" liveChange="onChangeValue"/>
+                                    <Label text="First Name" required="true"/>
+                                    <Input id="FirstNameID" value="{addPaylodEMP>/firstName}" liveChange="onChangeValue"/>
+
+                                    <Label text="Last Name" required="true"/>
+                                    <Input id="LastNameID" value="{addPaylodEMP>/lastName}" liveChange="onChangeValue"/>
+
+                                    <Label text="Date of Birth" required="true"/>
+                                    <DatePicker value="{addPaylodEMP>/DateOfBirth}"  change="onChangeValue" id="DateofBirthID" valueFormat="dd/MM/yyyy"></DatePicker>
+
+                                    <Label text="Gender" required="true" />
+                                    <Select id="GenderID" selectedKey="{addPaylodEMP>/Gender}" change="onChangeValue" forceSelection="false">
+                                        <items>
+                                            <core:Item key="Male" text="Male"/>
+                                            <core:Item key="Female" text="Female"/>
+                                            <core:Item key="Other" text="Other"/>
+                                        </items>
+                                    </Select>
+
+                                    <Label text="Marital Status" />
+                                    <Select id="MaritalStatusID" selectedKey="{addPaylodEMP>/MaritalStatus}" forceSelection="false">
+                                        <items>
+                                            <core:Item key="Unmarried" text="Unmarried"/>
+                                            <core:Item key="Married" text="Married"/>
+                                        </items>
+                                    </Select>
+
+                                    <Label text="Password" required="true"/>
+                                    <Input id="PasswordID" type="Password" value="{addPaylodEMP>/Password}" liveChange="onChangeValue"/>
+
+                                    <Label text="Profie Image" design="Bold" class="sapuiTinyMarginTop"></Label>
+                                    <u:FileUploader name="myFileUpload" fileType="png,jpeg,jpg" class="sapuiTinyMarginTop" value="{addPaylodEMP>/profileImage}" tooltip="Upload your file to the local server" uploadComplete="handleUploadComplete" change="onFileChange" />
+
+                                </form:content>
+                            </form:SimpleForm>
+                        </WizardStep>
+
+                        <!-- Step 2: Contact Details -->
+                        <WizardStep title="Contact Details" id="secondStep" icon="sap-icon://iphone" complete="step2Completed">
+                            <form:SimpleForm layout="ResponsiveGridLayout">
+                                <form:content>
+                                    <Label text="Mobile Number" required="true"/>
+                                    <!-- <Input id="MobileNumberID" value="{addPaylodEMP>/MobileNumber}"/> -->
+                                    <MaskInput value="{addPaylodEMP>/MobileNumber}" id="MobileNumberID" liveChange="onChangeValue" mask="9999999999" placeholderSymbol="_" placeholder="Enter Ten-digit number" showClearIcon="true" />
+
+
+                                    <Label text="Email" required="true"/>
+                                    <Input id="EmailID" value="{addPaylodEMP>/Email}" liveChange="onChangeValue"/>
+
+                                    <Label text="Local Address"/>
+                                    <Input id="LocalAddressID" value="{addPaylodEMP>/LocalAddress}"/>
+
+                                    <Label text="Permanent Address"/>
+                                    <Input id="PermanentAddressID" value="{addPaylodEMP>/PermanentAddress}"/>
+
+                                    <Label text="PAN Number" required="true"/>
+                                    <Input id="PANNumberID" value="{addPaylodEMP>/PANNumber}" liveChange="onChangeValue"/>
+                                    <!-- <MaskInput value="{addPaylodEMP>/PANNumber}" mask="9999999999" placeholderSymbol="_" placeholder="Enter Ten-digit number" showClearIcon="true" /> -->
+
+
+                                    <Label text="Aadhaar Number" required="true"/>
+                                    <!-- <Input id="AadhaarNumberID" value="{addPaylodEMP>/AadhaarNumber}"/> -->
+                                    <MaskInput id="AadhaarNumberID" value="{addPaylodEMP>/AadhaarNumber}" liveChange="onChangeValue" mask="9999-9999-9999" placeholderSymbol="_" placeholder="Enter twelve-digit number" showClearIcon="true" />
+                                </form:content>
+                            </form:SimpleForm>
+                        </WizardStep>
+
+                        <!-- Step 3: Job And Payroll Information -->
+                        <WizardStep title="Job And Payroll Information" id="thirdStep" icon="sap-icon://business-card" complete="step3Completed">
+                            <form:SimpleForm layout="ResponsiveGridLayout">
+                                <form:content>
+                                    <Label text="Designation" required="true"/>
+                                    <Input id="DesignationID" value="{addPaylodEMP>/Designation}" liveChange="onChangeValue"/>
+
+                                    <Label text="Department"/>
+                                    <Input id="AddDepartmentID" value="{addPaylodEMP>/Department}"/>
+
+                                    <Label text="Grade"/>
+                                    <Input id="GradeID" value="{addPaylodEMP>/Grade}"/>
+
+                                    <Label text="Branch"  required="true"/>
+                                    <Input id="BranchID" value="{addPaylodEMP>/Branch}" liveChange="onChangeValue"/>
+
+                                    <Label text="Role"  required="true"/>
+                                    <Select id="RoleID" selectedKey="{addPaylodEMP>/role}" forceSelection="false" change="onChangeValue">
+                                        <items>
+                                            <core:Item key="Employee" text="Employee"/>
+                                            <core:Item key="Admin" text="Admin"/>
+                                        </items>
+                                    </Select>
+
+                                    <Label text="Hire Date"/>
+                                    <DatePicker value="{addPaylodEMP>/hireDate}" id="HireDateID" valueFormat="dd/MM/yyyy"></DatePicker>
+
+                                    <Label text="Date of Joining"  required="true"/>
+                                    <DatePicker value="{addPaylodEMP>/DateofJoining}" liveChange="onChangeValue" id="DateofJoiningID" valueFormat="dd/MM/yyyy"></DatePicker>
+
+                                    <Label text="Date of Confirmation"/>
+                                    <DatePicker value="{addPaylodEMP>/DateofConfirmation}" id="DateofConfirmationID" valueFormat="dd/MM/yyyy"></DatePicker>
+
+                                    <Label text="Reporting Manager"  required="true"/>
+                                    <Input id="ReportingManagerID" value="{addPaylodEMP>/ReportingManager}" liveChange="onChangeValue"/>
+
+                                    <Label text="Approving Manager"  required="true"/>
+                                    <Input id="ApprovingManagerID" value="{addPaylodEMP>/ApprovingManager}" liveChange="onChangeValue"/>
+                                </form:content>
+                            </form:SimpleForm>
+                        </WizardStep>
+
+                        <!-- Step 4: Banking And Financial Information -->
+                        <WizardStep title="Banking And Financial Information" id="fourthStep" icon="sap-icon://money-bills" complete="step4Completed">
+                            <form:SimpleForm layout="ResponsiveGridLayout">
+                                <form:content>
+                                    <Label text="Bank Name"  required="true"/>
+                                    <Input id="BankNameID" value="{addPaylodEMP>/BankName}" liveChange="onChangeValue"/>
+
+                                    <Label text="Bank Account Number"  required="true"/>
+                                    <Input id="BankAccountNumberID" type="Number" value="{addPaylodEMP>/BankAccountNumber}" liveChange="onChangeValue"/>
+
+                                    <Label text="Bank IFSC Code"  required="true"/>
+                                    <Input id="BankIFSCCodeID" value="{addPaylodEMP>/BankIFSCCode}" liveChange="onChangeValue"/>
+
+                                    <Label text="Salary" />
+                                    <Input id="SalaryID" type="Number" value="{addPaylodEMP>/salary}"/>
+
+                                    <Label design="Bold" text="Deduction Type"/>
+                                    <Input value="{addPaylodEMP>/name}"></Input>
+
+                                    <Label design="Bold" text="Deduction Amount"/>
+                                    <Input type="Number" value="{addPaylodEMP>/amount}" />
+
+                                    <Label design="Bold" text="Deduction Description"/>
+                                    <Input value="{addPaylodEMP>/description}" />
+
+
+                                </form:content>
+                            </form:SimpleForm>
+                        </WizardStep>
+                    </Wizard>
+                </f:content>
+
+                <f:footer>
+                    <OverflowToolbar>
+                        <ToolbarSpacer/>
+                        <Button text="Previous" press="onPreviousButtonPress" id="onBackButtonPress" visible="false"/>
+                        <Button text="Next" type="Emphasized" press="onNextButtonPress" id="nextButton" enabled="true"/>
+                        <Button text="Add" type="Emphasized" enabled="false" id="finishButton" press="onAddDetails"/>
+                        <Button text="Cancel" type="Transparent" press="onCloseDialogWizard"/>
+                    </OverflowToolbar>
+                </f:footer>
+            </f:DynamicPage>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,114 @@
+<mvc:View xmlns:core="sap.ui.core"
+    xmlns:cards="sap.f.cards"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.f" controllerName="hrmate.controller.LeaveBalance"
+    xmlns="sap.suite.ui.commons"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:commons="sap.suite.ui.commons"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:m="sap.m">
+    <m:Page title="Leave Balance" titleAlignment="Center" showHeader="false">
+        <f:DynamicPage id="dynamicPageLeaveBalance" preserveHeaderStateOnScroll="true" showFooter="true" fitContent="true">
+            <f:title>
+                <f:DynamicPageTitle>
+                    <f:heading>
+                        <m:Title text="Leave Balance" wrapping="true"/>
+                    </f:heading>
+                    <f:expandedContent>
+                        <m:Label design="Bold" text="{maindata>/EmployeeCode}"/>
+                    </f:expandedContent>
+                    <f:snappedContent>
+                        <m:Label design="Bold" text="{maindata>/EmployeeCode}"/>
+                    </f:snappedContent>
+                    <f:snappedTitleOnMobile>
+                        <m:Title text="{maindata>/EmployeeCode}" wrapping="true"/>
+                    </f:snappedTitleOnMobile>
+                    <f:actions>
+                        <m:ToolbarSpacer/>
+                        <m:VBox class="sapUiSmallMarginTop">
+                            <m:ObjectAttribute title="Employee Name" text="{maindata>/profile/firstName} {maindata>/profile/lastName}"/>
+                            <m:ObjectAttribute title="Applied Date" text="{maindata>/currentDate}" />
+                        </m:VBox>
+                    </f:actions>
+                </f:DynamicPageTitle>
+            </f:title>
+            <f:content>
+
+
+                <layout:Grid defaultSpan="XL12 L12 M12 S12" class="sapUiTinyMarginTop">
+
+
+                    <f:Card height="auto" class="sapUiTinyMarginTop">
+                        <f:layoutData>
+                            <layout:GridData span="XL12 L12 M12 S12" />
+                        </f:layoutData>
+                        <f:content>
+                            <commons:ChartContainer showFullScreen="true" showLegend="true" showZoom="true" showLegendButton="true">
+                                <commons:ChartContainerContent>
+                                    <commons:content>
+                                        <viz:VizFrame id="idVizLeaveBalance" vizType="donut" height="312px" selectData="onselectLeaveBalance" deselectData="ondeselectDataLeaveBalance" vizProperties='{
+        "dataLabel": { "visible": true, "showTotal": true },
+        "legend": { "visible": true },  
+        "title": { "text": "Leave Balance" },
+        "plotArea": {
+            "dataLabel": { "visible": true, "showTotal": true },
+            "drawingEffect": "glossy"
+        }
+    }'>
+
+                                            <viz:dataset>
+                                                <viz.data:FlattenedDataset data="{LeaveBalanceData>/}">
+                                                    <viz.data:dimensions>
+                                                        <viz.data:DimensionDefinition name="type" value="{LeaveBalanceData>type}" />
+                                                    </viz.data:dimensions>
+                                                    <viz.data:measures>
+                                                        <viz.data:MeasureDefinition name="days" value="{LeaveBalanceData>days}" />
+                                                    </viz.data:measures>
+                                                </viz.data:FlattenedDataset>
+                                            </viz:dataset>
+
+                                            <viz:feeds>
+                                                <viz.feeds:FeedItem uid="size" type="Measure" values="days" />
+                                                <viz.feeds:FeedItem uid="color" type="Dimension" values="type" />
+                                            </viz:feeds>
+
+                                        </viz:VizFrame>
+                                    </commons:content>
+                                </commons:ChartContainerContent>
+                            </commons:ChartContainer>
+
+
+                        </f:content>
+                    </f:Card>
+
+                    <m:VBox items="{LeavebalanceSelectData>/}">
+                        <m:items >
+                            <f:Card class="sapUiSmallMarginTop">
+                            <f:header>
+                            <cards:Header title="Leave Balance Data"></cards:Header>
+                            </f:header>
+                                <f:content>
+                                    <m:VBox width="100%">
+                                        <form:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="4" class="sapUiContentPadding" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+                                            <form:content>
+                                                <m:Label design="Bold" text="Leave Type"/>
+                                                <m:Input value="{LeavebalanceSelectData>type}" editable="false"></m:Input>
+                                                <m:Label design="Bold" text="Deduction Amount"/>
+                                                <m:Input type="Number" value="{LeavebalanceSelectData>days}" editable="false"/>
+                                            </form:content>
+                                        </form:SimpleForm>
+                                    </m:VBox>
+                                </f:content>
+                            </f:Card>
+                        </m:items>
+
+                    </m:VBox>
+
+                </layout:Grid>
+            </f:content>
+        </f:DynamicPage>
+    </m:Page>
+</mvc:View>

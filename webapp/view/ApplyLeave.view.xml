@@ -1,0 +1,216 @@
+<mvc:View xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.f" controllerName="hrmate.controller.ApplyLeave">
+
+    <f:DynamicPage id="dynamicPageId" preserveHeaderStateOnScroll="true" showFooter="true" fitContent="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Apply Leave" wrapping="true"/>
+                </f:heading>
+                <f:expandedContent>
+                    <Label design="Bold" text="{maindata>/EmployeeCode}"/>
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Label design="Bold" text="{maindata>/EmployeeCode}"/>
+                </f:snappedContent>
+                <f:snappedTitleOnMobile>
+                    <Title text="{maindata>/EmployeeCode}" wrapping="true"/>
+                </f:snappedTitleOnMobile>
+                <f:actions>
+                    <ToolbarSpacer/>
+                    <!-- <Button text="Edit" type="Emphasized"/>
+                    <Button text="Delete" type="Transparent"/>
+                    <Button text="Copy" type="Transparent"/>
+                    <Button icon="sap-icon://action" type="Transparent"/> -->
+                    <VBox class="sapUiSmallMarginTop">
+                        <ObjectAttribute title="Employee Name" text="{maindata>/profile/firstName} {maindata>/profile/lastName}"/>
+                        <ObjectAttribute title="Today Date" text="{maindata>/currentDate}" />
+                    </VBox>
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <IconTabBar backgroundDesign="Solid" expandable="false" headerBackgroundDesign="Solid" select="onSelectIconTabFilteremployeeleave">
+                <items>
+
+                    <IconTabFilter text="Apply Leave" key="ApplyLeave">
+                        <content>
+
+                            <layout:BlockLayout background="Dashboard">
+                                <layout:BlockLayoutRow>
+                                    <layout:BlockLayoutCell>
+
+
+                                        <form:SimpleForm id="idApplyLeaveForm" editable="false" layout="ResponsiveGridLayout" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                                            <form:content>
+
+
+                                                <Label design="Bold" text="Leave Type" required="true"/>
+                                                <Select id="idLeaveType" selectedKey="{LeaveApplyFormData>/LeaveType}" forceSelection="false" change="onSelectLeaveType">
+                                                    <items>
+                                                        <core:Item key="Sick Leave" text="Sick Leave" />
+                                                        <core:Item key="Casual Leave" text="Casual Leave" />
+                                                        <core:Item key="Compensatory Leave" text="Compensatory Leave" />
+                                                        <core:Item key="Leave With Pay" text="Leave With Pay" />
+                                                        <core:Item key="Leave Without Pay" text="Leave Without Pay" />
+                                                    </items>
+                                                </Select>
+
+                                                <Label design="Bold" text="Leave Balance" required="true"/>
+                                                <Input id="idLeaveBalance" value="{LeaveApplyFormData>/LeaveBalance}" liveChange="onChangeValue" editable="false" />
+
+                                                <Label text="From Date/Day Type" design="Bold" required="true"/>
+                                                <DatePicker id="idStartDate" value="{LeaveApplyFormData>/FromDate}" change="onCalculateLeaveDays" liveChange="onChangeValue" displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-dd">
+                                                    <layoutData>
+                                                        <layout:GridData span="XL6 L6 M6 S6" />
+                                                    </layoutData>
+                                                </DatePicker>
+                                                <Select id="FromDateDayType" liveChange="onChangeValue" change="onCalculateLeaveDays" required="true" forceSelection="false" selectedKey="{LeaveApplyFormData>/FromDateDayType}">
+                                                    <items>
+                                                        <core:Item key="Firsthalf" text="First Half" />
+                                                        <core:Item key="Secondhalf" text="Second Half" />
+                                                        <core:Item key="FullDay" text="Full Day" />
+                                                        <!-- <core:Item key="Compensatory" text="Compensatory Leave" />
+                                        <core:Item key="LWP" text="Leave Without Pay" /> -->
+                                                    </items>
+                                                    <layoutData>
+                                                        <layout:GridData span="XL6 L6 M6 S6" />
+                                                    </layoutData>
+                                                </Select>
+
+
+                                                <Label text="To Date/Day Type" design="Bold" required="true"/>
+                                                <DatePicker value="{LeaveApplyFormData>/ToDate}" id="idToDate" change="onCalculateLeaveDays" displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-dd" liveChange="onChangeValue">
+                                                    <layoutData>
+                                                        <layout:GridData span="XL6 L6 M6 S6" />
+                                                    </layoutData>
+                                                </DatePicker>
+                                                <Select id="ToDateDayType" required="true" forceSelection="false" liveChange="onChangeValue" change="onCalculateLeaveDays" selectedKey="{LeaveApplyFormData>/ToDateDayType}">
+                                                    <items>
+                                                        <core:Item key="Firsthalf" text="First Half" />
+                                                        <core:Item key="Secondhalf" text="Second Half" />
+                                                        <core:Item key="FullDay" text="Full Day" />
+                                                        <!-- <core:Item key="Compensatory" text="Compensatory Leave" />
+                                        <core:Item key="LWP" text="Leave Without Pay" /> -->
+                                                    </items>
+                                                    <layoutData>
+                                                        <layout:GridData span="XL6 L6 M6 S6" />
+                                                    </layoutData>
+                                                </Select>
+
+
+                                                <Label design="Bold" text="Total Leave Day " required="true"/>
+                                                <Input id="TotalLeaveDay" value="{LeaveApplyFormData>/TotalLeaveDay}" liveChange="onChangeValue" editable="false" />
+
+                                                <Label design="Bold" text="Remarks" required="true" />
+                                                <TextArea id="idRemarks" rows="3" placeholder="Enter your remarks..." liveChange="onChangeValue" value="{LeaveApplyFormData>/Remarks}"/>
+
+                                                <Label design="Bold" text="Email Notification To" />
+                                                <!-- <Input id="idEmailNotification" placeholder="Enter Email ID" value="{LeaveApplyFormData>/EmailNotificationTo}"/> -->
+                                                <MultiComboBox selectedKeys="{LeaveApplyFormData>/EmailNotificationTo}" items="{EmailEMPData>/}">
+                                                    <items>
+                                                        <core:Item text="{EmailEMPData>profile/Email}" key="{EmailEMPData>profile/Email}"></core:Item>
+                                                    </items>
+                                                </MultiComboBox>
+
+                                                <Label design="Bold" text="Add Attachment" />
+                                                <unified:FileUploader id="idFileUploader" width="100%" maximumFileSize="50kb" fileSizeExceed="onFileSizeExceed" fileType="png,jpeg,jpg"></unified:FileUploader>
+
+
+                                                <!-- Buttons -->
+                                                <Toolbar>
+                                                    <ToolbarSpacer />
+                                                    <Button text="Cancel" type="Reject" press="onCancelLeaveRequest"></Button>
+                                                    <Button text="Submit" type="Emphasized" press="onSubmitLeaveRequest"></Button>
+                                                </Toolbar>
+                                            </form:content>
+                                        </form:SimpleForm>
+                                    </layout:BlockLayoutCell>
+                                </layout:BlockLayoutRow>
+                            </layout:BlockLayout>
+                        </content>
+                    </IconTabFilter>
+
+                    <IconTabFilter text="Applied Leaves" key="AppliedLeaves">
+                        <content>
+                            <Table inset="true" id="AppliedLeavesTable" items="{LeaveRequestDataEmloyee>/}" sticky="ColumnHeaders" >
+                                <headerToolbar >
+                                    <OverflowToolbar width="100%">
+                                        <content>
+                                            <SegmentedButton selectionChange="onFilterStatus" id="Segmentedfilteremployee">
+                                                <items>
+                                                    <SegmentedButtonItem text="All" key="All"></SegmentedButtonItem>
+                                                    <SegmentedButtonItem text="AppRoved" key="Approve"></SegmentedButtonItem>
+                                                    <SegmentedButtonItem text="Pending" key="Pending"></SegmentedButtonItem>
+                                                    <SegmentedButtonItem text="Rejected" key="Reject"></SegmentedButtonItem>
+                                                </items>
+                                            </SegmentedButton>
+
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <noData>
+                                    <IllustratedMessage title="No Applied Leaves" description="There are no leave requests available." illustrationType="sapIllus-NoTasks">
+                                    </IllustratedMessage>
+                                </noData>
+
+                                <columns>
+                                    <Column>
+                                        <Text text="EMPLOYEE CODE"/>
+                                    </Column>
+                                    <Column demandPopin="false" minScreenWidth="Tablet">
+                                        <Text text="Employee Name"/>
+                                    </Column>
+                                    <Column demandPopin="false" minScreenWidth="Tablet">
+                                        <Text text="Leave Type"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="Start Date"/>
+                                    </Column>
+                                    <Column demandPopin="false" minScreenWidth="Tablet">
+                                        <Text text="Start Date Day Type"/>
+                                    </Column>
+                                    <Column demandPopin="false" minScreenWidth="Tablet">
+                                        <Text text="End Date Day Type"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="End Date"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="Number Of Day"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Phone">
+                                        <Text text="Status"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <Text text="{LeaveRequestDataEmloyee>employeecode}"/>
+                                        <Text text="{LeaveRequestDataEmloyee>firstName} {LeaveRequestData>lastName}"/>
+                                        <Text text="{LeaveRequestDataEmloyee>LeaveType}"/>
+                                        <Text text="{LeaveRequestDataEmloyee>FromDate}"/>
+                                        <Text text="{LeaveRequestDataEmloyee>FromDateDayType}"/>
+                                        <Text text="{LeaveRequestDataEmloyee>ToDate}"/>
+                                        <Text text="{LeaveRequestDataEmloyee>ToDateDayType}"/>
+                                        <Text text="{LeaveRequestDataEmloyee>TotalLeaveDay}"/>
+                                        <ObjectStatus text="{LeaveRequestDataEmloyee>stat}" state="{= ${LeaveRequestDataEmloyee>stat} === 'Pending' ? 'Warning' : 
+                ${LeaveRequestDataEmloyee>stat} === 'Approve' ? 'Success' : 
+                ${LeaveRequestDataEmloyee>stat} === 'Reject' ? 'Error' : 'None' }" inverted="true"/>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+
+                        </content>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+
+        </f:content>
+
+    </f:DynamicPage>
+</mvc:View>

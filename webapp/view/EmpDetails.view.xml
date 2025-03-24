@@ -1,0 +1,589 @@
+<mvc:View xmlns:cards="sap.f.cards"
+    xmlns:uxap="sap.uxap"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.f" controllerName="hrmate.controller.EmpDetails"
+    xmlns:table="sap.ui.table"
+    xmlns:commons="sap.suite.ui.commons"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.uxap"
+    xmlns:microchart="sap.suite.ui.microchart"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:m="sap.m">
+
+    <m:App>
+        <m:Page showHeader="false" showFooter="{= ${EmployeeDetails>/isEnable} === true }" floatingFooter="true">
+            <m:content>
+
+                <ObjectPageLayout useIconTabBar="true" id="details" showTitleInHeaderContent="true" showEditHeaderButton="true" editHeaderButtonPress="handleEditBtnPress" upperCaseAnchorBar="false">
+                    <headerTitle>
+                        <ObjectPageDynamicHeaderTitle>
+                            <expandedHeading>
+                                <m:HBox>
+                                    <m:Button icon="sap-icon://slim-arrow-left" class="sapUiSmallMarginEnd" type="Default" press="onRouteAdminPage"></m:Button>
+                                    <m:Avatar src="{EmployeeDetails>/profile/profileImage}" displaySize="M" displayShape="Square" showBorder="true">
+                                        <m:detailBox>
+                                            <m:LightBox>
+                                                <m:LightBoxItem imageSrc="{EmployeeDetails>/profile/profileImage}" alt="{EmployeeDetails>/profile/firstName}" title="{EmployeeDetails>/profile/firstName} {EmployeeDetails>/profile/lastName}" subtitle="{EmployeeDetails>/profile/Designation}">
+                                                </m:LightBoxItem>
+                                            </m:LightBox>
+                                        </m:detailBox>
+                                    </m:Avatar>
+                                    <m:Title text="{EmployeeDetails>/profile/firstName} {EmployeeDetails>/profile/lastName}" wrapping="true" class="sapUiSmallMarginBegin sapUiSmallMarginTop"/>
+                                </m:HBox>
+                            </expandedHeading>
+
+                            <snappedHeading>
+                                <m:HBox>
+                                    <m:Button icon="sap-icon://slim-arrow-left" class="sapUiSmallMarginEnd" type="Default" press="onRouteAdminPage"></m:Button>
+                                    <m:Avatar src="{EmployeeDetails>/profile/profileImage}" displaySize="M" displayShape="Square" showBorder="true">
+                                        <m:detailBox>
+                                            <m:LightBox>
+                                                <m:LightBoxItem imageSrc="{EmployeeDetails>/profile/profileImage}" alt="{EmployeeDetails>/profile/firstName}" title="{EmployeeDetails>/profile/firstName} {EmployeeDetails>/profile/lastName}" subtitle="{EmployeeDetails>/profile/Designation}">
+                                                </m:LightBoxItem>
+                                            </m:LightBox>
+                                        </m:detailBox>
+                                    </m:Avatar>
+                                    <m:Title text="{EmployeeDetails>/profile/firstName} {EmployeeDetails>/profile/lastName}" wrapping="true" class="sapUiSmallMarginBegin sapUiSmallMarginTop"/>
+                                </m:HBox>
+                            </snappedHeading>
+
+                            <expandedContent>
+                                <m:Text text="{maindata>/profile/Designation}" class="sapUiLargeMarginBegin"/>
+                            </expandedContent>
+
+                            <snappedContent>
+                                <m:Text text="{maindata>/profile/Designation}" class="sapUiLargeMarginBegin" />
+                            </snappedContent>
+                            <snappedTitleOnMobile>
+                                <m:Title text="{maindata>/profile/Designation}" class="sapUiLargeMarginBegin" wrapping="true"></m:Title>
+                            </snappedTitleOnMobile>
+                            <actions>
+                                <m:MenuButton icon="sap-icon://action" tooltip="action">
+                                    <m:Menu>
+                                        <m:MenuItem text="Edit Profile Details" icon="sap-icon://edit" press="onEmaEditProfilePress"/>
+                                        <m:MenuItem text="Save as Tile" icon="sap-icon://add-favorite" press="onfavourite"/>
+                                    </m:Menu>
+                                </m:MenuButton>
+                            </actions>
+                        </ObjectPageDynamicHeaderTitle>
+                    </headerTitle>
+                    <sections>
+                        <ObjectPageSection id="Profileid" title="Profile">
+                            <subSections>
+                                <ObjectPageSubSection id="PersonalInformation" title="Personal Information" titleUppercase="false">
+                                    <layout:BlockLayout background="Dashboard">
+                                        <layout:BlockLayoutRow >
+                                            <layout:BlockLayoutCell >
+
+
+
+                                                <form:SimpleForm id="PersonalInformationform" editable="{= ${EmployeeDetails>/isEnable} === true }" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+                                                    <form:content>
+
+                                                        <!-- Group 1: Personal Information -->
+                                                        <core:Title text="Personal Information"/>
+                                                        <m:Label design="Bold" text="Employee Code" />
+                                                        <m:Input value="{EmployeeDetails>/EmployeeCode}" editable="false"/>
+
+                                                        <m:Label design="Bold" text="First Name"/>
+                                                        <m:Input value="{EmployeeDetails>/profile/firstName}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+
+                                                        <m:Label design="Bold" text="Last Name"/>
+                                                        <m:Input value="{EmployeeDetails>/profile/lastName}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+
+                                                        <m:Label design="Bold" text="Date of Birth"/>
+                                                        <m:DatePicker value="{EmployeeDetails>/profile/DateOfBirth}" editable="{= ${EmployeeDetails>/isEnable} === true }" valueFormat="dd/MM/yyyy"/>
+
+                                                        <m:Label design="Bold" text="Gender"/>
+                                                        <m:Select selectedKey="{EmployeeDetails>/profile/Gender}" editable="{= ${EmployeeDetails>/isEnable} === true }">
+                                                            <m:items>
+                                                                <core:Item key="Male" text="Male"/>
+                                                                <core:Item key="Female" text="Female"/>
+                                                                <core:Item key="Other" text="Other"/>
+                                                            </m:items>
+                                                        </m:Select>
+
+                                                        <!-- Group 2: Additional Information -->
+                                                        <core:Title text="Additional Information"/>
+                                                        <m:Label design="Bold" text="Marital Status"/>
+                                                        <m:Select selectedKey="{EmployeeDetails>/profile/MaritalStatus}" editable="{= ${EmployeeDetails>/isEnable} === true }">
+                                                            <m:items>
+                                                                <core:Item key="Unmarried" text="Unmarried"/>
+                                                                <core:Item key="Married" text="Married"/>
+                                                            </m:items>
+                                                        </m:Select>
+
+                                                        <m:Label design="Bold" text="Password"/>
+                                                        <m:Input type="Password" value="{EmployeeDetails>/profile/Password}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+
+                                                        <m:Label design="Bold" text="Profile Image" visible="{= ${EmployeeDetails>/isEnable} === false }"></m:Label>
+                                                        <m:Avatar displaySize="L" visible="{= ${EmployeeDetails>/isEnable} === false }" active="true" showBorder="true" class="sapUiTinyMarginTop" src="{EmployeeDetails>/profile/profileImage}" enabled="true" press=".pressavtar" displayShape="Square"></m:Avatar>
+
+                                                        <m:Label design="Bold" text="Profile Image" visible="{= ${EmployeeDetails>/isEnable} === true }"></m:Label>
+                                                        <m:Avatar displaySize="L" visible="{= ${EmployeeDetails>/isEnable} === true }" badgeIcon="sap-icon://edit" active="true" showBorder="true" class="sapUiTinyMarginTop" src="{EmployeeDetails>/profile/profileImage}" enabled="true" press=".pressavtar" displayShape="Square"></m:Avatar>
+                                                    </form:content>
+
+                                                </form:SimpleForm>
+                                            </layout:BlockLayoutCell>
+                                        </layout:BlockLayoutRow>
+                                    </layout:BlockLayout>
+                                </ObjectPageSubSection>
+                                <ObjectPageSubSection id="ContactDetails" title="Contact Details" titleUppercase="false">
+                                    <layout:BlockLayout background="Dashboard">
+                                        <layout:BlockLayoutRow>
+                                            <layout:BlockLayoutCell>
+                                                <form:SimpleForm id="ContactDetailsform" editable="{= ${EmployeeDetails>/isEnable} === true }" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+                                                    <form:content>
+
+                                                        <!-- Group 1: Contact Information -->
+                                                        <core:Title text="Contact Information"/>
+                                                        <m:Label design="Bold" text="Mobile Number"/>
+                                                        <m:MaskInput value="{EmployeeDetails>/profile/MobileNumber}" editable="{= ${EmployeeDetails>/isEnable} === true }" mask="9999999999" placeholderSymbol="_" placeholder="Enter Ten-digit number" />
+
+                                                        <m:Label design="Bold" text="Email"/>
+                                                        <m:Input value="{EmployeeDetails>/profile/Email}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+
+                                                        <m:Label design="Bold" text="Local Address"/>
+                                                        <m:Input value="{EmployeeDetails>/profile/LocalAddress}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+
+                                                        <m:Label design="Bold" text="Permanent Address"/>
+                                                        <m:Input value="{EmployeeDetails>/profile/PermanentAddress}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+
+                                                        <!-- Group 2: Identification Details -->
+                                                        <core:Title text="Identification Details"/>
+                                                        <m:Label design="Bold" text="PAN Number"/>
+                                                        <m:Input value="{EmployeeDetails>/profile/PANNumber}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+
+                                                        <m:Label design="Bold" text="Aadhaar Number"/>
+                                                        <m:MaskInput value="{EmployeeDetails>/profile/AadhaarNumber}" editable="{= ${EmployeeDetails>/isEnable} === true }" mask="9999-9999-9999" placeholderSymbol="_" placeholder="Enter twelve-digit number" />
+
+                                                    </form:content>
+
+
+
+                                                </form:SimpleForm>
+                                            </layout:BlockLayoutCell>
+                                        </layout:BlockLayoutRow>
+                                    </layout:BlockLayout>
+                                </ObjectPageSubSection>
+                                <ObjectPageSubSection id="JobAndPayrollInformation" title="Job And Payroll Information" titleUppercase="false">
+                                    <layout:BlockLayout background="Dashboard">
+                                        <layout:BlockLayoutRow>
+                                            <layout:BlockLayoutCell>
+                                                <form:SimpleForm id="JobAndPayrollInformationform" editable="{= ${EmployeeDetails>/isEnable} === true }" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+                                                    <form:content>
+                                                        <core:Title text="Job Information"/>
+                                                        <m:Label design="Bold" text="Designation"/>
+                                                        <m:Input value="{EmployeeDetails>/profile/Designation}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+
+                                                        <m:Label design="Bold" text="Department"/>
+                                                        <m:Input value="{EmployeeDetails>/profile/Department}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+
+                                                        <m:Label design="Bold" text="Grade"/>
+                                                        <m:Input value="{EmployeeDetails>/profile/Grade}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+
+                                                        <m:Label design="Bold" text="Branch"/>
+                                                        <m:Input value="{EmployeeDetails>/profile/Branch}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+
+                                                        <m:Label design="Bold" text="Role"/>
+                                                        <m:Select selectedKey="{EmployeeDetails>/profile/role}" editable="{= ${EmployeeDetails>/isEnable} === true }">
+                                                            <m:items>
+                                                                <core:Item key="Employee" text="Employee"/>
+                                                                <core:Item key="Admin" text="Admin"/>
+                                                            </m:items>
+                                                        </m:Select>
+
+                                                        <core:Title text="Employment Dates And Manages"/>
+                                                        <m:Label design="Bold" text="Hire Date"/>
+                                                        <m:DatePicker value="{EmployeeDetails>/profile/hireDate}" valueFormat="dd/MM/yyyy" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+                                                        <m:Label design="Bold" text="Date of Joining"/>
+
+                                                        <m:DatePicker value="{EmployeeDetails>/profile/DateofJoining}" editable="{= ${EmployeeDetails>/isEnable} === true }" valueFormat="dd/MM/yyyy"/>
+
+                                                        <m:Label design="Bold" text="Date of Confirmation"/>
+                                                        <m:DatePicker value="{EmployeeDetails>/profile/DateofConfirmation}" editable="{= ${EmployeeDetails>/isEnable} === true }" valueFormat="dd/MM/yyyy"/>
+
+                                                        <m:Label design="Bold" text="Reporting Manager"/>
+                                                        <m:Input value="{EmployeeDetails>/profile/ReportingManager}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+
+                                                        <m:Label design="Bold" text="Approving Manager"/>
+                                                        <m:Input value="{EmployeeDetails>/profile/ApprovingManager}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+                                                    </form:content>
+
+
+                                                </form:SimpleForm>
+                                            </layout:BlockLayoutCell>
+                                        </layout:BlockLayoutRow>
+                                    </layout:BlockLayout>
+                                </ObjectPageSubSection>
+                                <ObjectPageSubSection id="BankingAndFinancialInformation" title="Banking And Financial Information" titleUppercase="false">
+                                    <layout:BlockLayout background="Dashboard">
+                                        <layout:BlockLayoutRow>
+                                            <layout:BlockLayoutCell>
+                                                <form:SimpleForm id="BankingAndFinancialInformationform" editable="{= ${EmployeeDetails>/isEnable} === true }" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+                                                    <form:content>
+
+                                                        <!-- Group 1: Bank Details -->
+                                                        <core:Title text="Bank Details"/>
+                                                        <m:Label design="Bold" text="Bank Name"/>
+                                                        <m:Input value="{EmployeeDetails>/profile/BankName}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+
+                                                        <m:Label design="Bold" text="Bank Account Number"/>
+                                                        <m:Input type="Number" value="{EmployeeDetails>/profile/BankAccountNumber}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+
+                                                        <m:Label design="Bold" text="Bank IFSC Code"/>
+                                                        <m:Input value="{EmployeeDetails>/profile/BankIFSCCode}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+
+                                                        <core:Title text="Salary And Employment Details"/>
+                                                        <m:Label design="Bold" text="Salary"/>
+                                                        <m:Input type="Number" value="{EmployeeDetails>/profile/salary}" editable="{= ${EmployeeDetails>/isEnable} === true }" />
+
+
+
+
+
+                                                    </form:content>
+
+
+
+                                                </form:SimpleForm>
+                                            </layout:BlockLayoutCell>
+                                        </layout:BlockLayoutRow>
+                                    </layout:BlockLayout>
+                                </ObjectPageSubSection>
+                            </subSections>
+                        </ObjectPageSection>
+                        <ObjectPageSection>
+                            <ObjectPageSubSection title="Deductions" titleUppercase="false">
+
+                                <layout:Grid defaultSpan="XL6 L6 M12 S12" class="sapUiTinyMarginTop">
+                                    <f:Card height="auto" class="sapUiTinyMarginTop sapUiResponsiveContentPadding">
+                                        <f:content>
+                                            <commons:ChartContainer id="idChartContainerDedduction" class="sapUiContentPadding" showFullScreen="false" showPersonalization="false" autoAdjustHeight="false" title="Add Deduction">
+                                                <commons:content>
+                                                    <commons:ChartContainerContent >
+                                                        <commons:content>
+                                                            <form:SimpleForm layout="ResponsiveGridLayout">
+                                                                <form:content>
+                                                                    <m:MessageStrip id="deductionMessageStrip" text="Add A New Deduction Details." showIcon="true" type="Information" />
+                                                                    <m:Label design="Bold" text="Deduction Type" required="true" />
+                                                                    <m:Input value="{DeductionaddModel>/name}" id="idDeductionType" liveChange="onChangeValue">
+                                                                    </m:Input>
+
+                                                                    <m:Label design="Bold" text="Deduction Amount" required="true"/>
+                                                                    <m:Input type="Number" value="{DeductionaddModel>/amount}" id="idDeductionAmount" liveChange="onChangeValue"/>
+
+                                                                    <m:Label design="Bold" text="Deduction Description" required="true"/>
+                                                                    <m:Input value="{DeductionaddModel>/description}" id="idDeductionDescription" liveChange="onChangeValue"/>
+
+                                                                    <m:Button id="onAddDeductionDetailsID" press="onAddDeductionDetails" text="Add Details" type="Emphasized" icon="sap-icon://add-contact"></m:Button>
+                                                                    <m:Button press="onDeleteEMPDeductionDetails" text="Delete" type="Reject" visible="false" id="DeleteEMPDeductionDetails" icon="sap-icon://delete"></m:Button>
+
+                                                                </form:content>
+                                                            </form:SimpleForm>
+                                                        </commons:content>
+                                                    </commons:ChartContainerContent>
+                                                </commons:content>
+
+                                                <commons:toolbar>
+                                                    <m:OverflowToolbar >
+
+                                                        <m:ToolbarSpacer/>
+                                                        <m:Button id="onPopoverDeductionsid" fieldGroupIds="Deductions" type="Ghost" press="onPopoverInfoPress" icon="sap-icon://hint"></m:Button>
+                                                        <commons:ChartContainerToolbarPlaceholder></commons:ChartContainerToolbarPlaceholder>
+                                                    </m:OverflowToolbar>
+                                                </commons:toolbar>
+
+                                            </commons:ChartContainer>
+                                        </f:content>
+                                    </f:Card>
+
+                                    <f:Card height="auto" class="sapUiTinyMarginTop">
+                                        <f:layoutData>
+                                            <layout:GridData span="XL6 L6 M12 S12" />
+                                        </f:layoutData>
+                                        <f:content>
+                                            <commons:ChartContainer showFullScreen="true" showLegend="true" showZoom="true" showLegendButton="true">
+                                                <commons:ChartContainerContent>
+                                                    <commons:content>
+
+                                                        <viz:VizFrame id="idVizFrame" vizType="donut" height="312px" selectData="onselectitemdeduction" deselectData="ondeselectData" vizProperties='{
+        "dataLabel": { "visible": true, "showTotal": true },
+        "legend": { "visible": true },  
+        "title": { "text": "Deductions" },
+        "plotArea": {
+            "dataLabel": { "visible": true, "showTotal": true },
+            "drawingEffect": "glossy"
+        }
+    }'>
+
+
+                                                            <viz:dataset >
+                                                                <viz.data:FlattenedDataset data="{DeductionData>/}" >
+                                                                    <viz.data:dimensions>
+                                                                        <viz.data:DimensionDefinition name="name" value="{DeductionData>name}" />
+                                                                        <viz.data:DimensionDefinition name="description" value="{DeductionData>description}" />
+                                                                    </viz.data:dimensions>
+                                                                    <viz.data:measures>
+                                                                        <viz.data:MeasureDefinition name="amount" value="{DeductionData>amount}" />
+                                                                    </viz.data:measures>
+                                                                </viz.data:FlattenedDataset>
+                                                            </viz:dataset>
+                                                            <viz:feeds>
+                                                                <viz.feeds:FeedItem uid="size" type="Measure" values="amount" />
+                                                                <viz.feeds:FeedItem uid="color" type="Dimension" values="name" />
+                                                                <viz.feeds:FeedItem uid="color" type="Dimension" values="description" />
+                                                            </viz:feeds>
+
+
+                                                        </viz:VizFrame>
+                                                    </commons:content>
+                                                </commons:ChartContainerContent>
+                                            </commons:ChartContainer>
+
+
+                                        </f:content>
+                                    </f:Card>
+
+
+                                </layout:Grid>
+
+                            </ObjectPageSubSection>
+                        </ObjectPageSection>
+                        <ObjectPageSection id="personalSection" title="Personal" importance="Medium">
+                            <subSections>
+                                <ObjectPageSubSection id="employeePunchHistory" title="Punch History" titleUppercase="false">
+                                    <blocks>
+                                        <m:Table items="{EMPPunchHistory>/}" headerText="Punch History">
+
+                                            <m:headerToolbar>
+                                                <m:OverflowToolbar>
+                                                    <m:content>
+                                                        <m:ToolbarSpacer ></m:ToolbarSpacer>
+                                                        <m:Button text="Add Punch History" type="Ghost" icon="sap-icon://add" press="onAddEMPPunchData"></m:Button>
+                                                        <m:Button text="Download" type="Emphasized" icon="sap-icon://download" press="onDownloadEMPPunchData"></m:Button>
+                                                    </m:content>
+                                                </m:OverflowToolbar>
+                                            </m:headerToolbar>
+                                            <m:noData>
+                                                <m:IllustratedMessage title="No Punch History Found" description="No records available for punch history." illustrationType="sapIllus-NoData">
+                                                </m:IllustratedMessage>
+                                            </m:noData>
+                                            <m:columns>
+                                                <m:Column hAlign="Center">
+                                                    <m:Title text="Date" wrapping="true"></m:Title>
+                                                </m:Column>
+
+                                                <m:Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                                                    <m:Title text="Punch IN" wrapping="true"></m:Title>
+                                                </m:Column>
+
+
+                                                <m:Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                                                    <m:Title text="Punch Out" wrapping="true"></m:Title>
+                                                </m:Column>
+
+
+                                                <m:Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <m:Title text="Punch IN Address" wrapping="true"></m:Title>
+                                                </m:Column>
+
+
+                                                <m:Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <m:Title text="Punch Out Address" wrapping="true"></m:Title>
+                                                </m:Column>
+
+                                            </m:columns>
+                                            <m:items>
+                                                <m:ColumnListItem>
+                                                    <!-- <m:Text text="{EMPPunchHistory>date}"></m:Text> -->
+                                                    <m:DatePicker value="{EMPPunchHistory>date}" showCurrentDateButton="true"></m:DatePicker>
+                                                    <!-- <m:Text text="{EMPPunchHistory>punchIn}"></m:Text> -->
+                                                    <m:TimePicker value="{EMPPunchHistory>punchIn}" showCurrentTimeButton="true"></m:TimePicker>
+                                                    <!-- <m:Text text="{EMPPunchHistory>punchOut}"></m:Text> -->
+                                                    <m:TimePicker value="{EMPPunchHistory>punchOut}" showCurrentTimeButton="true"></m:TimePicker>
+                                                    <m:Text text="{EMPPunchHistory>Inaddress}"></m:Text>
+                                                    <m:Text text="{EMPPunchHistory>Outaddress}"></m:Text>
+
+                                                </m:ColumnListItem>
+                                            </m:items>
+
+                                        </m:Table>
+                                    </blocks>
+                                </ObjectPageSubSection>
+                            </subSections>
+                        </ObjectPageSection>
+
+                        <ObjectPageSection id="employmentSection" title="Employment">
+                            <subSections>
+                                <ObjectPageSubSection id="employeePayslips" title="Payslips" titleUppercase="false">
+                                    <blocks>
+                                        <m:Table >
+                                            <m:noData>
+                                                <m:IllustratedMessage title="No Payslip Data Available" description="There are no Payslip Data recorded yet." illustrationType="sapIllus-NoData">
+                                                </m:IllustratedMessage>
+                                            </m:noData>
+
+                                            <m:columns>
+                                                <m:Column >
+                                                    <m:Text text="Rating"></m:Text>
+                                                </m:Column>
+
+                                                <m:Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <m:Text text="Person"></m:Text>
+                                                </m:Column>
+
+
+                                                <m:Column demandPopin="true" minScreenWidth="Tablet">
+                                                    <m:Text text="Date"></m:Text>
+                                                </m:Column>
+
+
+
+
+                                            </m:columns>
+                                            <m:items>
+                                                <m:ColumnListItem>
+                                                    <m:Text text="q"></m:Text>
+
+                                                </m:ColumnListItem>
+                                            </m:items>
+
+                                        </m:Table>
+                                    </blocks>
+                                </ObjectPageSubSection>
+                            </subSections>
+                        </ObjectPageSection>
+
+                        <ObjectPageSection id="Reviewsection" title="Review">
+                            <subSections>
+                                <ObjectPageSubSection id="employeeLeaveBalance" title="Leave Balance" titleUppercase="false">
+                                    <layout:Grid defaultSpan="XL6 L6 M12 S12" class="sapUiTinyMarginTop">
+
+                                        <f:Card class="sapUiTinyMarginTop">
+                                            <f:content>
+                                                <commons:ChartContainer id="idChartContainerLeave" class="sapUiContentPadding" showFullScreen="false" showPersonalization="false" autoAdjustHeight="false" title="Add Leave">
+                                                    <commons:content>
+                                                        <commons:ChartContainerContent >
+                                                            <commons:content>
+                                                                <form:SimpleForm layout="ResponsiveGridLayout">
+                                                                    <form:content>
+                                                                        <m:MessageStrip id="LeaeBalanceMessageStrip" text="Add A New Leave Balance Details." showIcon="true" type="Information" />
+                                                                        <m:Label design="Bold" text="Leave Type" required="true" />
+                                                                        <!-- <m:Input id="idLeaveTypeAdd" liveChange="onChangeValue"></m:Input>  -->
+                                                                        <m:Select id="idLeaveTypeAdd" change="onChangeValue" forceSelection="false" selectedKey="{addleavepayloaddata>/type}">
+                                                                            <m:items>
+                                                                                <core:Item text="Casual Leave" key="Casual Leave"></core:Item>
+                                                                                <core:Item text="Sick Leave" key="Sick Leave"></core:Item>
+                                                                                <core:Item text="Leave With Pay" key="Leave With Pay"></core:Item>
+                                                                            </m:items>
+                                                                        </m:Select>
+
+                                                                        <m:Label design="Bold" text="Leave Day" required="true"/>
+                                                                        <m:Input type="Number" id="idLeaveDayAmount" liveChange="onChangeValue" value="{addleavepayloaddata>/days}"/>
+
+                                                                        <m:Button id="addNeLeave" type="Emphasized" text="Add Leave" press="onAddLeaveEmployee" icon="sap-icon://add"></m:Button>
+                                                                        <m:Button id="DeleteEMPLeaveDetails" type="Reject" text="Delete Leave" press="DeleteLeaveEmployee" visible="false" icon="sap-icon://delete"></m:Button>
+
+                                                                    </form:content>
+                                                                </form:SimpleForm>
+                                                            </commons:content>
+                                                        </commons:ChartContainerContent>
+                                                    </commons:content>
+
+                                                    <commons:toolbar>
+                                                        <m:OverflowToolbar id="apToolbar">
+
+                                                            <m:ToolbarSpacer/>
+                                                            <m:Button id="btnAtion2" type="Ghost" press="onPopoverInfoPress" icon="sap-icon://hint" fieldGroupIds="Leaves"></m:Button>
+                                                            <commons:ChartContainerToolbarPlaceholder></commons:ChartContainerToolbarPlaceholder>
+                                                        </m:OverflowToolbar>
+                                                    </commons:toolbar>
+                                                    <!-- <dimensionSelectors>
+                    <m:Select id="idSeector">
+                        <core:Item key="0" text="Sales by Country"/>
+                    </m:Select>
+                </dimensionSelectors> -->
+                                                </commons:ChartContainer>
+                                            </f:content>
+                                        </f:Card>
+                                        <f:Card class="sapUiTinyMarginTop">
+
+                                            <f:content>
+                                                <commons:ChartContainer showFullScreen="true" showLegend="true" showZoom="true" showLegendButton="true">
+                                                    <commons:ChartContainerContent>
+                                                        <commons:content>
+                                                            <viz:VizFrame id="idVizFrameLeavebalance" vizType="donut" height="312px" selectData="onselectLeaveType" deselectData="ondeselectDataLeave" vizProperties='{
+        "dataLabel": { "visible": false, "showTotal": false },
+        "legend": { "visible": true },  
+        "title": { "text": "Leave Balance" },
+        "plotArea": {
+            "dataLabel": { "visible": false, "showTotal": false },
+            "drawingEffect": "glossy",
+            "colorPalette": ["#ff9800", "#3498db", "#4caf50"] 
+        }
+    }'>
+
+                                                                <viz:dataset>
+                                                                    <viz.data:FlattenedDataset data="{EMPLeaveBlanceData>/}">
+                                                                        <viz.data:dimensions>
+                                                                            <viz.data:DimensionDefinition name="type" value="{EMPLeaveBlanceData>type}" />
+                                                                            <!-- <viz.data:DimensionDefinition name="description" value="{EMPLeaveBlanceData>description}" /> -->
+                                                                        </viz.data:dimensions>
+                                                                        <viz.data:measures>
+                                                                            <viz.data:MeasureDefinition name="days" value="{EMPLeaveBlanceData>days}" />
+                                                                        </viz.data:measures>
+                                                                    </viz.data:FlattenedDataset>
+                                                                </viz:dataset>
+
+                                                                <viz:feeds>
+                                                                    <viz.feeds:FeedItem uid="size" type="Measure" values="days" />
+                                                                    <viz.feeds:FeedItem uid="color" type="Dimension" values="type" />
+                                                                    <!-- <viz.feeds:FeedItem uid="color" type="Dimension" values="description" /> -->
+                                                                </viz:feeds>
+
+                                                            </viz:VizFrame>
+                                                        </commons:content>
+                                                    </commons:ChartContainerContent>
+                                                </commons:ChartContainer>
+
+
+                                            </f:content>
+                                        </f:Card>
+
+
+                                    </layout:Grid>
+                                </ObjectPageSubSection>
+                            </subSections>
+                        </ObjectPageSection>
+
+                        <ObjectPageSection id="chartsection" title="Sales Data">
+                            <subSections>
+                                <ObjectPageSubSection id="employeeLeaveHistory" title="Leave History" titleUppercase="false">
+
+                                </ObjectPageSubSection>
+                            </subSections>
+                        </ObjectPageSection>
+
+
+
+                    </sections>
+
+                </ObjectPageLayout>
+            </m:content>
+
+            <m:footer >
+                <m:OverflowToolbar >
+                    <m:ToolbarSpacer/>
+                    <m:Button type="Accept" text="Save" press="onSaveEditProfilePress"/>
+                    <m:Button type="Reject" text="Cancel" press="onCancelEditProfilePress"/>
+                </m:OverflowToolbar>
+            </m:footer>
+        </m:Page>
+    </m:App>
+
+</mvc:View>

@@ -1,0 +1,130 @@
+<mvc:View xmlns:form="sap.ui.layout.form"
+	xmlns:cards="sap.f.cards"
+	xmlns:unified="sap.ui.unified"
+	xmlns:core="sap.ui.core"
+	xmlns:layout="sap.ui.layout"
+	xmlns:f="sap.f" controllerName="hrmate.controller.Calendor"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:grid="sap.ui.layout.cssgrid"
+	xmlns="sap.m">
+
+	<Page showHeader="false" title="Punch" titleAlignment="Center" enableScrolling="false">
+		<IconTabBar stretchContentHeight="true" backgroundDesign="Transparent" applyContentPadding="false" expanded="true" expandable="false" class="sapUiResponsiveContentPadding">
+			<items>
+				<IconTabFilter key="info" text="Calander">
+					<ScrollContainer vertical="true" height="90vh">
+						<layout:BlockLayout background="Dashboard">
+							<layout:BlockLayoutRow >
+								<layout:BlockLayoutCell >
+									<unified:CalendarLegend id="legend">
+										<unified:items>
+											<unified:CalendarLegendItem color="#32CD32" type="Type08" text="Full Day"></unified:CalendarLegendItem>
+											<unified:CalendarLegendItem type="Type02" text="MSP"></unified:CalendarLegendItem>
+											<unified:CalendarLegendItem type="Type06" text="HoliDay" color="#87CEEB"></unified:CalendarLegendItem>
+											<unified:CalendarLegendItem type="Type05" text="Leave"></unified:CalendarLegendItem>
+											<unified:CalendarLegendItem type="Type01" text="Approve Leave"></unified:CalendarLegendItem>
+											<unified:CalendarLegendItem type="Type09" text="Pending Leave"></unified:CalendarLegendItem>
+											<unified:CalendarLegendItem type="Type03" text="Reject Leave"></unified:CalendarLegendItem>
+										</unified:items>
+									</unified:CalendarLegend>
+								</layout:BlockLayoutCell>
+							</layout:BlockLayoutRow>
+							<layout:BlockLayoutRow >
+								<layout:BlockLayoutCell>
+									<unified:Calendar width="100%" showWeekNumbers="false" id="calendar" nonWorkingDays="0" select="onDateSelect"></unified:Calendar>
+								</layout:BlockLayoutCell>
+							</layout:BlockLayoutRow>
+							<layout:BlockLayoutRow >
+								<layout:BlockLayoutCell width="100%" id="dateDayInfo" visible="{= ${dateinfo>/date} ? true : false }">
+									<f:GridList id="gridList" headerText="{dateinfo>/date}" selectionChange="onSelectionChange" class="sapUiResponsiveContentPadding">
+										<f:customLayout>
+											<grid:GridBasicLayout gridTemplateColumns="repeat(auto-fit, minmax(16rem, 1fr))" gridGap="0.5rem" />
+										</f:customLayout>
+										<f:noData>
+											<IllustratedMessage title="No Records Found" description="No data is available for the selected date." illustrationType="sapIllus-NoEntries">
+											</IllustratedMessage>
+										</f:noData>
+
+										<f:GridListItem detailPress="onDetailPress" press="onPress" counter="Quantity" type="Active" highlight="{dateinfo>/Highlight}">
+
+											<HBox alignContent="Center" alignItems="Center" class="sapUiSmallMarginBegin sapUiTinyMarginTop sapUiTinyMarginBottom ">
+												<core:Icon src="sap-icon://map-fill" size="2rem" color="green" visible="{= ${dateinfo>/punchIn} &amp;&amp; ${dateinfo>/punchOut} ? true : false }"/>
+												<core:Icon src="sap-icon://error" size="2rem" color="red" visible="{= ${dateinfo>/dateType} === 'Non-Working Day'}"/>
+												<core:Icon src="sap-icon://time-off" size="2rem" color="red" visible="{= ${dateinfo>/dateType} === 'MSP'}"/>
+												<core:Icon src="sap-icon://meeting-room" size="2rem" color="green" visible="{= ${dateinfo>/dateType} === 'Working Day'}"/>
+												<core:Icon src="sap-icon://present" size="2rem" visible="{= ${dateinfo>/dateType} === 'Today'}"/>
+												<core:Icon src="sap-icon://general-leave-request" size="2rem" color="red" visible="{= ${dateinfo>/leaves} === 'true'}"/>
+												<core:Icon src="sap-icon://ai" size="2rem" color="blue" visible="{= ${dateinfo>/Highlight} === 'Information'}"/>
+												<VBox class="sapUiSmallMarginBegin" justifyContent="Start">
+													<Title text="{dateinfo>/dateType}" level="H1" wrapping="true"></Title>
+													<HBox justifyContent="SpaceAround" visible="{= ${dateinfo>/punchIn} ? true : false }">
+														<Label design="Bold" text="Punch IN :" />
+														<Label text="{dateinfo>/punchIn}" />
+													</HBox>
+													<HBox justifyContent="SpaceAround" visible="{= ${dateinfo>/punchOut} ? true : false }">
+														<Label design="Bold" text="Punch Out :" />
+														<Label text="{dateinfo>/punchOut}" />
+													</HBox>
+												</VBox>
+											</HBox>
+										</f:GridListItem>
+									</f:GridList>
+								</layout:BlockLayoutCell>
+							</layout:BlockLayoutRow>
+						</layout:BlockLayout>
+					</ScrollContainer>
+				</IconTabFilter>
+				<IconTabFilter key="attachments" text="Punch History">
+					<ScrollContainer vertical="true" height="90vh">
+						<layout:BlockLayout >
+							<layout:BlockLayoutRow >
+								<layout:BlockLayoutCell >
+									<VBox items="{punchhistory>/}">
+
+
+										<items>
+
+
+											<f:Card class="sapUiSmallMarginTop">
+												<!-- <f:header >
+												<cards:Header visible="false" title="{punchhistory>date}">
+
+												</cards:Header>
+											</f:header> -->
+
+
+												<f:content>
+													<VBox width="100%">
+														<Bar >
+															<contentLeft>
+																<Title text="{punchhistory>date}" wrapping="true" class="sapUiTinyMarginBottom sapUiTinyMarginTop"></Title>
+															</contentLeft>
+															<contentRight>
+																<Button icon="sap-icon://hint" class="sapUiTinyMarginBottom sapUiTinyMarginTop" type="Ghost" press="onPressLocationPunch"></Button>
+
+															</contentRight>
+														</Bar>
+														<List itemPress="listpress">
+															<items >
+																<InputListItem label="Punch In: {punchhistory>punchIn}">
+																	<!-- <Button icon="sap-icon://hint" press="onPressLocationPunch"></Button> -->
+																</InputListItem>
+																<InputListItem label="Punch Out: {punchhistory>punchOut}">
+																	<!-- <Button icon="sap-icon://hint" press="onPressLocationPunch"></Button> -->
+																</InputListItem>
+															</items>
+														</List>
+													</VBox>
+												</f:content>
+											</f:Card>
+										</items>
+									</VBox>
+								</layout:BlockLayoutCell>
+							</layout:BlockLayoutRow>
+						</layout:BlockLayout>
+					</ScrollContainer>
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+	</Page>
+</mvc:View>

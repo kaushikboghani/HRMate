@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns:u="sap.ui.unified"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.f"
+  xmlns:form="sap.ui.layout.form">
+  <Dialog title="Profile Image" showHeader="true" verticalScrolling="false" icon="sap-icon://add-photo">
+    <content>
+      <u:FileUploader name="myFileUpload" fileType="png,jpeg,jpg" class="sapUiSmallMargin" uploadUrl="upload/" tooltip="Upload your file to the local server" uploadComplete="handleUploadComplete" change="onFileChange" />
+    </content>
+    <beginButton>
+    <Button type="Ghost" text="Add" press="onSaveProfileFilePhoto" icon="sap-icon://add-photo"></Button>
+    </beginButton>
+    <endButton>
+    <Button type="Reject" icon="sap-icon://decline" text="Cancel" press="onPressCloseDialog"></Button>
+    </endButton>
+  </Dialog>
+</core:FragmentDefinition>

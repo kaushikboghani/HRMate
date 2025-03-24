@@ -1,0 +1,32 @@
+<core:FragmentDefinition xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Dialog title="Add Punch Data" titleAlignment="Center">
+        <content>
+            <form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+                <Label text="Date" design="Bold" required="true"/>
+                <DatePicker id="dateInput" change="onChangeValue" valueFormat="yyyy-MM-dd" displayFormat="dd-MM-yyyy"></DatePicker>
+                <Label text="Punch IN" design="Bold" required="true"/>
+                <TimePicker id="punchInInput" change="onChangeValue"></TimePicker>
+                <Label text="Punch Out"  design="Bold" required="true"/>
+                <TimePicker id="punchOutInput" change="onChangeValue"></TimePicker>
+                <Label text="Punch IN Address" design="Bold" required="true"/>
+                <TextArea id="punchInAddressInput" liveChange="onChangeValue"></TextArea>
+                <Label text="Punch Out Address" design="Bold" required="true"/>
+                <TextArea id="punchOutAddressInput" liveChange="onChangeValue"></TextArea>
+            </form:SimpleForm>
+
+        </content>
+        <beginButton>
+            <Button text="Add History" press="onAddPunchHistory" type="Emphasized"></Button>
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" press="onPressCloseDialog" type="Reject"></Button>
+        </endButton>
+    </Dialog>
+
+
+
+
+</core:FragmentDefinition>

@@ -1,0 +1,226 @@
+<mvc:View xmlns:uxap="sap.uxap"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.f" controllerName="hrmate.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:cssgrid="sap.ui.layout.cssgrid"
+    xmlns="sap.m">
+
+    <App>
+        <Page showHeader="false">
+            <uxap:ObjectPageLayout id="ObjectPageLayoutProfile" enableLazyLoading="true" beforeNavigate="onBeforeNavigate" useIconTabBar="false" showTitleInHeaderContent="true" upperCaseAnchorBar="false" visible="{= ${maindata>/profile/role} === 'Employee'}">
+
+                <!-- Header Title Section -->
+                <uxap:headerTitle>
+                    <uxap:ObjectPageDynamicHeaderTitle>
+                        <uxap:expandedHeading>
+                            <FlexBox>
+                                <items>
+                                    <Avatar src="{maindata>/profile/profileImage}" class="sapUiTinyMarginEnd" showBorder="true"/>
+                                    <Title text="{maindata>/profile/firstName} {maindata>/profile/lastName}" wrapping="true" class="sapUiSmallMarginTop" />
+                                </items>
+                            </FlexBox>
+                        </uxap:expandedHeading>
+                        <uxap:snappedHeading>
+                            <FlexBox fitContainer="true" alignItems="Center">
+                                <Avatar src="{maindata>/profile/profileImage}" showBorder="true" class="sapUiTinyMarginEnd"/>
+                                <Title text="{maindata>/profile/firstName} {maindata>/profile/lastName}" wrapping="true"  />
+                            </FlexBox>
+                        </uxap:snappedHeading>
+                        <uxap:expandedContent>
+                            <Text text="{maindata>/profile/Designation}" />
+                        </uxap:expandedContent>
+                        <uxap:snappedContent>
+                            <Text text="{maindata>/profile/Designation}"/>
+                        </uxap:snappedContent>
+                        <uxap:snappedTitleOnMobile>
+                            <Title text="{maindata>/profile/Designation}" wrapping="true"/>
+                        </uxap:snappedTitleOnMobile>
+                        <uxap:actions>
+                            <Button text="" class="sapUiTinyMargin" type="Ghost"/>
+                            <Button icon="sap-icon://settings" class="sapUiTinyMargin" type="Emphasized"/>
+                        </uxap:actions>
+                    </uxap:ObjectPageDynamicHeaderTitle>
+                </uxap:headerTitle>
+
+
+                <!-- Header Content Section -->
+                <!-- <uxap:headerContent>
+                    <layout:VerticalLayout class="sapUiTinyMargin">
+                        <Text text="+33 6 4512 5158"/>
+                        <Text text="DeniseSmith@sap.com"/>
+                        <Label text="San Jose, USA"/>
+                    </layout:VerticalLayout>
+                    
+                </uxap:headerContent> -->
+                <uxap:sections>
+                    <uxap:ObjectPageSection showTitle="false">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection>
+                                <!-- <layout:Grid defaultSpan="L6 M4 S6" hSpacing="1" vSpacing="1"> -->
+                                <!-- <layout:BlockLayout>
+<layout:BlockLayoutRow>
+<layout:BlockLayoutCell width="1"> -->
+                                <!-- <Text text="wewewewew"></Text  > -->
+
+                                <VBox width="100%">
+                                    <FlexBox wrap="Wrap" justifyContent="Center" alignItems="Center">
+                                        <items>
+                                            <GenericTile id="puchin" class="sapUiTinyMargin " sizeBehavior="Small" frameType="OneByOne" press="onPunchIn">
+
+                                                <TileContent >
+                                                    <!-- <core:Icon src="sap-icon://physical-activity" size="3rem" color="blue" id="PunchInTileID"></core:Icon> -->
+                                                    <content>
+                                                        <VBox justifyContent="Center">
+                                                            <Image id="PunchInTileID" width="3rem"/>
+                                                            <Label text="Punch In" design="Bold"></Label>
+                                                        </VBox>
+                                                    </content>
+
+                                                </TileContent>
+                                            </GenericTile>
+                                            <GenericTile id="punchout" class="sapUiTinyMargin" sizeBehavior="Small" frameType="OneByOne" press="onPunchOut">
+                                                <TileContent>
+                                                    <VBox justifyContent="Center">
+                                                        <Image id="PunchOutTileID" width="3rem"/>
+                                                        <Label text="Punch Out" design="Bold"></Label>
+                                                    </VBox>
+                                                    <!-- <core:Icon src="sap-icon://offsite-work" size="3rem" color="blue" id="PunchOutTileID"></core:Icon> -->
+
+
+                                                </TileContent>
+                                            </GenericTile>
+                                        </items>
+
+                                    </FlexBox>
+                                    <!-- <FlexBox wrap="Wrap" justifyContent="Center" alignItems="Center">
+                                        <items>
+
+                                            <GenericTile class="sapUiTinyMargin tile-profile " sizeBehavior="Small" header="Profile" frameType="OneByHalf" press="onProfile">
+                                                <TileContent>
+                                                    <content>
+                                                        <HBox justifyContent="SpaceBetween">
+                                                            <Title text="Profile"></Title>
+                                                            <core:Icon src="sap-icon://customer" size="2rem" color="white" class="sapUiSmallMarginBottom"></core:Icon>
+                                                        </HBox>
+                                                    </content>
+                                                </TileContent>
+                                            </GenericTile>
+                                            <GenericTile class="sapUiTinyMargin tile-payslip" sizeBehavior="Small" header="Payslip" frameType="OneByHalf" press="onPayslip">
+                                                <TileContent>
+                                                    <NumericContent value="View" withMargin="true" />
+                                                </TileContent>
+                                            </GenericTile>
+                                            <GenericTile class="sapUiTinyMargin tile-calendar" sizeBehavior="Small" header="Calendar" frameType="OneByHalf" press="onCalendar">
+                                                <TileContent>
+                                                    <NumericContent value="Schedule" withMargin="true" />
+                                                </TileContent>
+                                            </GenericTile>
+                                            <GenericTile class="sapUiTinyMargin tile-leave" sizeBehavior="Small" header="Leave Management" frameType="OneByHalf" press="onLeave">
+                                                <TileContent>
+                                                    <NumericContent value="Apply" withMargin="true" />
+                                                </TileContent>
+                                            </GenericTile>
+                                            <GenericTile class="sapUiTinyMargin tile-history " sizeBehavior="Small" header="Punch History" frameType="OneByHalf" press="onPunchHistory">
+                                                <TileContent>
+                                                    <NumericContent value="View" withMargin="true" />
+                                                </TileContent>
+                                            </GenericTile>
+                                            <GenericTile class="sapUiTinyMargin roundCornerTiles shado" sizeBehavior="Small" header="Profile" frameType="OneByHalf" press="onProfile2">
+                                                <TileContent>
+                                                    <NumericContent value="View" withMargin="true" />
+                                                </TileContent>
+                                            </GenericTile>
+                                        </items>
+                                    </FlexBox> -->
+
+                                    <Panel backgroundDesign="Transparent">
+                                        <content>
+                                            <f:GridList id="User_ID" noDataText="No User Data" borderReached=".onBorderReached">
+                                                <f:customLayout>
+                                                    <cssgrid:GridBoxLayout ></cssgrid:GridBoxLayout>
+                                                </f:customLayout>
+                                                <f:GridListItem type="Active" press="onSubCardPress" class="sapUiTinyMargin tile-profile ">
+                                                    <VBox fieldGroupIds="RouteView6" class="sapUiTinyMargin" justifyContent="Center" alignContent="Center" alignItems="Center">
+                                                        <Image id="ProfileTileID" width="3rem"/>
+                                                        <Label design="Bold" text="Profile" wrapping="true" class="sapUiTinyMarginTop"/>
+                                                    </VBox>
+                                                </f:GridListItem>
+
+                                                <f:GridListItem type="Active" press="onSubCardPress" class="sapUiTinyMargin tile-payslip">
+                                                    <VBox fieldGroupIds="RouteView4" class="sapUiTinyMargin" justifyContent="Center" alignContent="Center" alignItems="Center">
+                                                        <Image id="PayslipTileID" width="3rem"/>
+                                                        <Label design="Bold" text="Payslip" wrapping="true" class="sapUiTinyMarginTop"/>
+                                                    </VBox>
+                                                </f:GridListItem>
+
+                                                <f:GridListItem type="Active" press="onSubCardPress" class="sapUiTinyMargin tile-calendar">
+                                                    <VBox fieldGroupIds="RouteView2" class="sapUiTinyMargin" justifyContent="Center" alignContent="Center" alignItems="Center">
+                                                        <Image id="CalendarTileID" width="3rem"/>
+                                                        <Label design="Bold" text="Calendar" wrapping="true" class="sapUiTinyMarginTop"/>
+                                                    </VBox>
+                                                </f:GridListItem>
+
+                                                <f:GridListItem type="Active" press="onSubCardPress" class="sapUiTinyMargin tile-leave">
+                                                    <VBox fieldGroupIds="RouteView3" class="sapUiTinyMargin" justifyContent="Center" alignContent="Center" alignItems="Center">
+                                                        <Image id="LeaveManagementTileID" width="3rem"/>
+                                                        <Label design="Bold" text="Leave Management" wrapping="true" class="sapUiTinyMarginTop"/>
+                                                    </VBox>
+                                                </f:GridListItem>
+
+                                                <f:GridListItem type="Active" press="onSubCardPress" class="sapUiTinyMargin tile-history ">
+                                                    <VBox fieldGroupIds="RouteView7" class="sapUiTinyMargin" justifyContent="Center" alignContent="Center" alignItems="Center">
+                                                        <Image id="PunchHistoryTileID" width="3rem"/>
+                                                        <Label design="Bold" text="Attedence Regularization" wrapping="true" class="sapUiTinyMarginTop"/>
+                                                    </VBox>
+                                                </f:GridListItem>
+
+                                                <f:GridListItem type="Active" press="onSubCardPress" class="sapUiTinyMargin tile-Certificates">
+                                                    <VBox fieldGroupIds="RouteView12" class="sapUiTinyMargin" justifyContent="Center" alignContent="Center" alignItems="Center">
+                                                        <Image id="CertificatesTileID" width="3rem"/>
+                                                        <Label design="Bold" text="Certificates" wrapping="true" class="sapUiTinyMarginTop"/>
+                                                    </VBox>
+                                                </f:GridListItem>
+
+                                                <f:GridListItem type="Active" press="onSubCardPress" class="sapUiTinyMargin tile-timesheet">
+                                                    <VBox fieldGroupIds="RouteView13" class="sapUiTinyMargin" justifyContent="Center" alignContent="Center" alignItems="Center">
+                                                        <Image id="TimesheetTileID" width="3rem" src="sap-icon://timesheet"/>
+                                                        <Label design="Bold" text="Timesheet" wrapping="true" class="sapUiTinyMarginTop"/>
+                                                    </VBox>
+                                                </f:GridListItem>
+
+                                            </f:GridList>
+
+
+                                        </content>
+                                    </Panel>
+                                </VBox>
+
+
+
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
+
+                    <uxap:ObjectPageSection showTitle="true" title="card">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection>
+
+
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+                </uxap:sections>
+
+            </uxap:ObjectPageLayout>
+
+
+
+
+
+
+        </Page>
+    </App>
+
+</mvc:View>

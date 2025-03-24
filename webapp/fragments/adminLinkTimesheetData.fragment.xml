@@ -1,0 +1,34 @@
+<core:FragmentDefinition xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <ResponsivePopover title="Timesheet Details" placement="Auto" >
+
+        <form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4" columnsL="1" columnsM="1">
+            <Label design="Bold" text="Employee Code" />
+            <Text text="{PopoverTimeSheetData>/employeecode}" />
+
+            <Label design="Bold" text="Date" />
+            <Text text="{PopoverTimeSheetData>/date}" />
+
+            <Label design="Bold" text="Task Name" />
+            <Text text="{PopoverTimeSheetData>/taskName}" />
+
+            <Label design="Bold" text="Start Time" />
+            <Text text="{PopoverTimeSheetData>/startTime}" />
+
+            <Label design="Bold" text="End Time" />
+            <Text text="{PopoverTimeSheetData>/endTime}" />
+
+            <Label design="Bold" text="Total Hours" />
+            <Text text="{PopoverTimeSheetData>/totalHours}" />
+
+            <Label design="Bold" text="Comments" />
+            <Text text="{PopoverTimeSheetData>/comments}" />
+
+            <Label design="Bold" text="Status" />
+            <ObjectStatus text="{PopoverTimeSheetData>/status}" state="{= ${PopoverTimeSheetData>/status} === 'Pending' ? 'Warning' : 
+                                 ${PopoverTimeSheetData>/status} === 'Approve' ? 'Success' : 
+                                 ${PopoverTimeSheetData>/status} === 'Reject' ? 'Error' : 'None' }" inverted="true"/>
+        </form:SimpleForm>
+    </ResponsivePopover>
+</core:FragmentDefinition>

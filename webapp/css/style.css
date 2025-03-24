@@ -1,0 +1,244 @@
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+#__toolbar4 {
+    margin-top: -12px !important;
+}
+
+.loginPage {
+    background: linear-gradient(-45deg, #ff6a00, #06beb6);
+    /* display: flex; */
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+
+
+.circles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 96%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.circles li {
+    position: absolute;
+    display: block;
+    list-style: none;
+    /*  */
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    /* background: transparent; */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    /* backdrop-filter: blu r(10px); */
+    /* -webkit-backdrop-filter: blur(10px); */
+    border-radius: 30px;
+    border: 1.5px solid rgba(255, 255, 255, 0.7);
+    animation: animate 25s linear infinite;
+    animation-delay: 0s;
+    bottom: -150px;
+}
+
+
+/* .circles li:nth-child(1) {
+    left: 25%;
+    width: 30px;
+    height: 30px;
+    animation-delay: 0s;
+    background: rgba(255, 94, 0, 0.7); /* Warm Orange
+} */
+
+
+.circles li:nth-child(2) {
+    left: 5%;
+    width: 100px;
+    height: 100px;
+    animation-delay: 0s;
+    animation-duration: 16s;
+    background: rgba(0, 191, 165, 0.7);
+    /* Teal */
+}
+
+.circles li:nth-child(3) {
+    left: 10%;
+    width: 30px;
+    height: 30px;
+    animation-delay: 4s;
+    animation-duration: 16s;
+    background: rgba(0, 229, 255, 0.7);
+    /* Cyan */
+}
+
+.circles li:nth-child(4) {
+    left: 45%;
+    width: 50px;
+    height: 50px;
+    animation-delay: 0s;
+    animation-duration: 18s;
+    background: rgba(255, 107, 129, 0.7);
+    /* Soft Pink */
+}
+
+.circles li:nth-child(5) {
+    left: 65%;
+    width: 45px;
+    height: 45px;
+    animation-delay: 2s;
+    animation-duration: 17s;
+    background: rgba(128, 0, 128, 0.7);
+    /* Deep Purple */
+}
+
+.circles li:nth-child(6) {
+    left: 75%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 3s;
+    background: rgba(255, 255, 255, 0.4);
+    /* Soft White */
+}
+
+/* .circles li:nth-child(7) {
+    left: 35%;
+    width: 100px;
+    height: 100px;
+    animation-delay: 7s;
+    background: rgba(255, 223, 186, 0.7); /* Soft Peach */
+/* } */
+*/ .circles li:nth-child(8) {
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 15s;
+    animation-duration: 45s;
+    background: rgba(0, 128, 255, 0.7);
+    /* Bright Blue */
+}
+
+.circles li:nth-child(9) {
+    left: 25%;
+    width: 40px;
+    height: 40px;
+    animation-delay: 2s;
+    animation-duration: 35s;
+    background: rgba(34, 139, 34, 0.7);
+    /* Forest Green */
+}
+
+.circles li:nth-child(10) {
+    left: 85%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+    animation-duration: 11s;
+    background: rgba(255, 20, 147, 0.7);
+    /* Deep Pink */
+}
+
+
+
+
+@keyframes animate {
+
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+
+    100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 30%;
+    }
+
+}
+
+.glassMorph {
+    background: rgba(255, 255, 255, 0.1);
+    animation: floatBox 4s ease-in-out infinite;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    /* padding: 2rem; */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* @keyframes floatBox {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(5px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+} */
+.whiteText {
+    color: white;
+}
+
+#forgetPass {
+    color: white;
+
+}
+
+.tile-punchin {
+    background: linear-gradient(135deg, #E3FCEF, #C8E6C9) !important;
+    color: #2E7D32 !important;
+}
+
+.tile-punchout {
+    background: linear-gradient(135deg, #FCE4EC, #FFCDD2) !important;
+    color: #C62828 !important;
+}
+
+.tile-profile {
+    background: linear-gradient(135deg, #E3F2FD, #BBDEFB) !important;
+    /* Soft Blue */
+    color: #1565C0 !important;
+}
+
+.tile-payslip {
+    background: linear-gradient(135deg, #FFF3E0, #FFE0B2) !important;
+    /* Soft Orange */
+    color: #EF6C00 !important;
+}
+
+.tile-calendar {
+    background: linear-gradient(135deg, #F3E5F5, #E1BEE7) !important;
+    /* Soft Purple */
+    color: #6A1B9A !important;
+}
+
+.tile-leave {
+    background: linear-gradient(135deg, #FFFDE7, #FFF9C4) !important;
+    /* Light Yellow */
+    color: #F57C00 !important;
+}
+
+.tile-history {
+    background: linear-gradient(135deg, #E0F7FA, #B2EBF2) !important;
+    /* Soft Teal */
+    color: #00796B !important;
+}
+
+.tile-Certificates {
+    background: linear-gradient(135deg, #F1F8E9, #DCEDC8) !important;
+    /* Light Lime Green */
+    color: #558B2F !important;
+}
+
+.tile-timesheet {
+    background: linear-gradient(135deg, #E0F2F1, #B2DFDB) !important; /* Soft Cyan */
+    color: #00695C !important; /* Deep Teal */
+}

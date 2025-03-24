@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns:form="sap.ui.layout.form" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:unified="sap.ui.unified">
+    <Dialog id="uploadDialog" draggable="true" resizable="true" title="Upload Certificate" titleAlignment="Center">
+        <content>
+            <form:SimpleForm editable="true" layout="ResponsiveGridLayout">
+                <form:content>
+                    <Label text="Select Certificate" design="Bold"/>
+                    <unified:FileUploader id="fileUploaderCertificate" width="100%" change="onFileSelected"  fileType="png,jpeg,jpg" value="{= ${certificates>UrlName} === '' ? ${certificates>UrlName} : ${certificates>/UrlName}}"/>
+                    <Label text="Certificate Name"  design="Bold"/>
+                    <Input id="fileUploaderCertificateName" value="{certificates>/FileName}" placeholder="Enter Certificate Name"/>
+                </form:content>
+            </form:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="Upload" type="Emphasized" press="onPressUploadCertificate"/>
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" type="Reject" press="onPressCloseDialog"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

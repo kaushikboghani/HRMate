@@ -1,0 +1,71 @@
+<mvc:View xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.f" controllerName="hrmate.controller.attedenceregularization">
+    <f:DynamicPage id="dynamicPageIdattedenceregularization" preserveHeaderStateOnScroll="true" showFooter="true" fitContent="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Attedence Regularization" wrapping="true"/>
+                </f:heading>
+                <f:expandedContent>
+                    <Label design="Bold" text="{maindata>/EmployeeCode}"/>
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Label design="Bold" text="{maindata>/EmployeeCode}"/>
+                </f:snappedContent>
+                <f:snappedTitleOnMobile>
+                    <Title text="{maindata>/EmployeeCode}" wrapping="true"/>
+                </f:snappedTitleOnMobile>
+                <f:actions>
+                    <ToolbarSpacer/>
+                    <VBox class="sapUiSmallMarginTop">
+                        <ObjectAttribute title="Employee Name" text="{maindata>/profile/firstName} {maindata>/profile/lastName}"/>
+                        <ObjectAttribute title="Today Date" text="{maindata>/currentDate}" />
+                    </VBox>
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+
+            <List id="AttendanceRegularizationList" items="{AttedenceRegularizationData>/}" mode="SingleSelectMaster" noDataText="No attendance regularization requests found.">
+                <headerToolbar >
+                    <OverflowToolbar width="100%">
+                        <Title text="Attedence Regularization Requests" wrapping="true"></Title>
+                        <ToolbarSpacer ></ToolbarSpacer>
+                        <Button icon="sap-icon://request" press="onPressCreateAttedenceRegularization" id="onPressCreateAttedenceRegularization" text="Request Regularization" type="Emphasized"></Button>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <noData>
+                    <IllustratedMessage title="No Attendance Regularization Requests" description="There are no attendance regularization requests found." illustrationType="sapIllus-NoEntries">
+                    </IllustratedMessage>
+                </noData>
+
+                <items>
+                    <ObjectListItem title="{AttedenceRegularizationData>RegularizationType}" intro="{AttedenceRegularizationData>RegularizationDate}" number="{AttedenceRegularizationData>RegularizationPunchInTime} - {AttedenceRegularizationData>RegularizationPunchOutTime}" numberUnit="Time">
+                        <firstStatus>
+                            <ObjectStatus text="{AttedenceRegularizationData>RegularizationStatus}" state="{= ${AttedenceRegularizationData>RegularizationStatus} === 'Pending' ? 'Warning' : 
+                          ${AttedenceRegularizationData>RegularizationStatus} === 'Approve' ? 'Success' : 
+                          ${AttedenceRegularizationData>RegularizationStatus} === 'Reject' ? 'Error' : 'None' 
+                    }" inverted="true" />
+
+                        </firstStatus>
+                        <ObjectAttribute text="{AttedenceRegularizationData>Reason}" />
+                    </ObjectListItem>
+                </items>
+            </List>
+
+
+
+
+
+
+        </f:content>
+
+    </f:DynamicPage>
+
+</mvc:View>
+

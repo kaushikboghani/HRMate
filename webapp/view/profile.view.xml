@@ -1,0 +1,282 @@
+<mvc:View xmlns:form="sap.ui.layout.form"
+	xmlns:uxap="sap.uxap"
+	xmlns:cards="sap.f.cards"
+	xmlns:unified="sap.ui.unified"
+	xmlns:core="sap.ui.core"
+	xmlns:layout="sap.ui.layout"
+	xmlns:f="sap.f" controllerName="hrmate.controller.profile"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+
+	<Page showHeader="false" enableScrolling="false">
+		<uxap:ObjectPageLayout useIconTabBar="true">
+			<uxap:headerTitle>
+				<uxap:ObjectPageDynamicHeaderTitle>
+					<uxap:expandedHeading>
+						<FlexBox fitContainer="true" alignItems="Center">
+								<Avatar
+							src="{maindata>/profile/profileImage}"
+							displaySize="S"
+							displayShape="Circle" class="sapUiSmallMarginEnd"
+							showBorder="true">
+						<detailBox>
+							<LightBox>
+								<LightBoxItem
+								
+										imageSrc="{maindata>/profile/profileImage}"
+										alt="{maindata>/profile/firstName} {maindata>/profile/lastName}"
+										title="{maindata>/profile/firstName} {maindata>/profile/lastName}"
+										subtitle="{maindata>/profile/Designation}">
+								</LightBoxItem>
+							</LightBox>
+						</detailBox>
+					</Avatar>
+							<Title text="{maindata>/profile/firstName} {maindata>/profile/lastName}" wrapping="true"/>
+						</FlexBox>
+					</uxap:expandedHeading>
+
+					<uxap:snappedHeading>
+						<FlexBox fitContainer="true" alignItems="Center">
+							<Avatar
+							src="{maindata>/profile/profileImage}"
+							displaySize="S"
+							displayShape="Circle"
+							showBorder="true"
+							
+							class="sapUiSmallMarginEnd">
+						<detailBox>
+							<LightBox>
+								<LightBoxItem
+										imageSrc="{maindata>/profile/profileImage}"
+										alt="{maindata>/profile/firstName} {maindata>/profile/lastName}"
+										title="{maindata>/profile/firstName} {maindata>/profile/lastName}"
+										subtitle="{maindata>/profile/Designation}">
+								</LightBoxItem>
+							</LightBox>
+						</detailBox>
+					</Avatar>
+							<Title text="{maindata>/profile/firstName} {maindata>/profile/lastName}" wrapping="true" />
+						</FlexBox>
+					</uxap:snappedHeading>
+
+
+					<uxap:expandedContent>
+						<Text text="{maindata>/profile/Designation}" wrapping="true"/>
+					</uxap:expandedContent>
+
+					<uxap:snappedContent>
+						<Text text="{maindata>/profile/Designation}" wrapping="true"/>
+					</uxap:snappedContent>
+
+					<uxap:snappedTitleOnMobile>
+						<Title text="{maindata>/profile/Designation}" wrapping="true"/>
+					</uxap:snappedTitleOnMobile>
+
+					<!-- <uxap:actions>
+						<Button text="Edit" type="Emphasized" press="onEdit"/>
+						<Button type="Transparent" text="Delete"/>
+						<Button type="Transparent" text="Copy"/>
+						<OverflowToolbarButton icon="sap-icon://action" type="Transparent" text="Share" tooltip="action"/>
+					</uxap:actions> -->
+				</uxap:ObjectPageDynamicHeaderTitle>
+			</uxap:headerTitle>
+			<!-- <uxap:headerContent>
+				<FlexBox wrap="Wrap" fitContainer="true">
+					<Avatar class="sapUiSmallMarginEnd" src="./test-resources/sap/uxap/images/imageID_275314.png" displaySize="L" /> -->
+
+			<!-- <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+						<Link text="+33 6 4512 5158"/>
+						<Link text="DeniseSmith@sap.com"/>
+					</layout:VerticalLayout> -->
+
+			<!-- <layout:HorizontalLayout class="sapUiSmallMarginBeginEnd">
+						<Image src="./test-resources/sap/uxap/images/linkedin.png"/>
+						<Image src="./test-resources/sap/uxap/images/Twitter.png" class="sapUiSmallMarginBegin"/>
+					</layout:HorizontalLayout> -->
+
+			<!-- <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+						<Label text="Hello! I am Denise and I use UxAP"/>
+						<VBox>
+							<Label text="Achieved goals"/>
+							<ProgressIndicator percentValue="30" displayValue="30%"/>
+						</VBox>
+					</layout:VerticalLayout> -->
+
+			<!-- <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+						<Label text="San Jose, USA"/>
+					</layout:VerticalLayout> -->
+			<!-- </FlexBox>
+			</uxap:headerContent> -->
+			<uxap:sections>
+				<!-- Personal  Identity Information -->
+				<uxap:ObjectPageSection title="Personal  Identity Information">
+					<uxap:subSections>
+
+						<uxap:ObjectPageSubSection title="Basic Details" showTitle="false">
+							<layout:BlockLayout background="Dashboard">
+								<layout:BlockLayoutRow>
+									<layout:BlockLayoutCell>
+
+	
+										<form:SimpleForm editable="false" title="Basic Details" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+											<Label text="Employee Code" />
+											<Text text="{maindata>/EmployeeCode}" />
+											<Label text="First Name" />
+											<Text text="{maindata>/profile/firstName}" />
+											<Label text="Last Name" />
+											<Text text="{maindata>/profile/lastName}" />
+											<Label text="Mobile Number" />
+											<Text text="{maindata>/profile/MobileNumber}" />
+											<Label text="Date of Birth" />
+											<Text text="{maindata>/profile/DateOfBirth}" />
+											<Label text="Email" />
+											<Text text="{maindata>/profile/Email}" />
+										</form:SimpleForm>
+									</layout:BlockLayoutCell>
+								</layout:BlockLayoutRow>
+							</layout:BlockLayout>
+						</uxap:ObjectPageSubSection>
+
+						<uxap:ObjectPageSubSection title="Address Details"  showTitle="false">
+							<layout:BlockLayout background="Dashboard">
+								<layout:BlockLayoutRow>
+									<layout:BlockLayoutCell>
+										<form:SimpleForm editable="false" layout="ResponsiveGridLayout" title="Address Details" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+											<Label text="Local Address" />
+											<Text text="{maindata>/profile/LocalAddress}" />
+											<Label text="Permanent Address" />
+											<Text text="{maindata>/profile/PermanentAddress}" />
+										</form:SimpleForm>
+									</layout:BlockLayoutCell>
+								</layout:BlockLayoutRow>
+							</layout:BlockLayout>
+						</uxap:ObjectPageSubSection>
+
+						<uxap:ObjectPageSubSection title="Identity Details" showTitle="false">
+							<layout:BlockLayout background="Dashboard">
+								<layout:BlockLayoutRow>
+									<layout:BlockLayoutCell>
+										<form:SimpleForm editable="false" title="Identity Detail" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+											<Label text="PAN Number" />
+											<Text text="{maindata>/profile/PANNumber}" />
+											<Label text="Aadhaar Number" />
+											<Text text="{maindata>/profile/AadhaarNumber}" />
+										</form:SimpleForm>
+									</layout:BlockLayoutCell>
+								</layout:BlockLayoutRow>
+							</layout:BlockLayout>
+						</uxap:ObjectPageSubSection>
+
+						<uxap:ObjectPageSubSection title="Personal Status" showTitle="false">
+							<layout:BlockLayout background="Dashboard">
+								<layout:BlockLayoutRow>
+									<layout:BlockLayoutCell>
+										<form:SimpleForm editable="false" title="Personal Status" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+											<Label text="Gender" />
+											<Text text="{maindata>/profile/Gender}" />
+											<Label text="Marital Status" />
+											<Text text="{maindata>/profile/MaritalStatus}" />
+
+										</form:SimpleForm>
+									</layout:BlockLayoutCell>
+								</layout:BlockLayoutRow>
+							</layout:BlockLayout>
+
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+
+				<!-- Employment  Work Details -->
+				<uxap:ObjectPageSection title="Employment  Work Details">
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection title="Job Information" showTitle="false">
+							<layout:BlockLayout background="Dashboard">
+								<layout:BlockLayoutRow>
+									<layout:BlockLayoutCell>
+										<form:SimpleForm editable="false" title="Job Information" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+											<Label text="Designation" />
+											<Text text="{maindata>/profile/Designation}" />
+											<Label text="Department" />
+											<Text text="{maindata>/profile/Department}" />
+											<Label text="Branch" />
+											<Text text="{maindata>/profile/Branch}" />
+											<Label text="Grade" />
+											<Text text="{maindata>/profile/Grade}" />
+										</form:SimpleForm>
+									</layout:BlockLayoutCell>
+								</layout:BlockLayoutRow>
+							</layout:BlockLayout>
+						</uxap:ObjectPageSubSection>
+
+						<uxap:ObjectPageSubSection title="Joining  Confirmation" showTitle="false">
+							<layout:BlockLayout background="Dashboard">
+								<layout:BlockLayoutRow>
+									<layout:BlockLayoutCell>
+										<form:SimpleForm editable="false" title="Joining  Confirmation" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+											<Label text="Date of Joining" />
+											<Text text="{maindata>/profile/DateofJoining}" />
+											<Label text="Date of Confirmation" />
+											<Text text="{maindata>/profile/DateofConfirmation}" />
+										</form:SimpleForm>
+									</layout:BlockLayoutCell>
+								</layout:BlockLayoutRow>
+							</layout:BlockLayout>
+						</uxap:ObjectPageSubSection>
+
+						<uxap:ObjectPageSubSection title="Reporting Structure" showTitle="false">
+							<layout:BlockLayout background="Dashboard">
+								<layout:BlockLayoutRow>
+									<layout:BlockLayoutCell>
+										<form:SimpleForm editable="false" title="Reporting Structure" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+											<Label text="Reporting Manager" />
+											<Text text="{maindata>/profile/ReportingManager}" />
+											<Label text="Approving Manager" />
+											<Text text="{maindata>/profile/ApprovingManager}" />
+										</form:SimpleForm>
+									</layout:BlockLayoutCell>
+								</layout:BlockLayoutRow>
+							</layout:BlockLayout>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+
+				<!-- Financial  Exit Details -->
+				<uxap:ObjectPageSection title="Financial  Exit Details" >
+					<uxap:subSections>
+						<uxap:ObjectPageSubSection title="Bank Details" showTitle="false">
+							<layout:BlockLayout background="Dashboard">
+								<layout:BlockLayoutRow>
+									<layout:BlockLayoutCell>
+										<form:SimpleForm editable="false" title="Bank Details" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+											<Label text="Bank Name" />
+											<Text text="{maindata>/profile/BankName}" />
+											<Label text="Bank Account Number" />
+											<Text text="{maindata>/profile/BankAccountNumber}" />
+											<Label text="Bank IFSC Code" />
+											<Text text="{maindata>/profile/BankIFSCCode}" />
+										</form:SimpleForm>
+										</layout:BlockLayoutCell>
+								</layout:BlockLayoutRow>
+							</layout:BlockLayout>
+
+						</uxap:ObjectPageSubSection>
+
+						<uxap:ObjectPageSubSection title="Separation" showTitle="false">
+							<layout:BlockLayout background="Dashboard">
+								<layout:BlockLayoutRow>
+									<layout:BlockLayoutCell>
+										<form:SimpleForm editable="false" title="Separation"  layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+											<Label text="Separation Details" />
+											<Text text="{maindata>/profile/SeparationDetails}" />
+										</form:SimpleForm>
+									</layout:BlockLayoutCell>
+								</layout:BlockLayoutRow>
+							</layout:BlockLayout>
+						</uxap:ObjectPageSubSection>
+					</uxap:subSections>
+				</uxap:ObjectPageSection>
+			</uxap:sections>
+		</uxap:ObjectPageLayout>
+
+	</Page>
+</mvc:View>

@@ -1,0 +1,359 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "hrmate",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.16.3",
+      "toolsId": "b6fdad4a-273e-4c39-92f9-59ff60ba4632"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "hrmate-Display": {
+          "semanticObject": "hrmate",
+          "action": "Display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.132.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "hrmate.i18n.i18n"
+        }
+      },
+      "punchhistory": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "maindata": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "dateinfo": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "paySlipdata": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "TotalDeductions": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "YearlyDeductions": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "EMPData": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "EmployeeDetails": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "EMPPunchHistory": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "addPaylodEMP": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "addDateTypeModel": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "masterholiday": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "MasterDataHoliday": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "DeductionData": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "LeaveApplyFormData": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "LeaveRequestData": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "LeaveRequestDataEmloyee": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "EMPLeaveBlanceData": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "addleavepayloaddata": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "isVisible": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "LeaveBalanceData": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "LeavebalanceSelectData": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "FilterModel": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "MasterDataHolidayPunchCheck": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "RegularizationForm": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "AttedenceRegularizationData": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "AttedenceRegularizationEMPData": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "certificates": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "LeaveBalanceEmployee": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "EmailEMPData": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "TimesheetDataEMP": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "AddtimesheetData": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "TimeSheetAllData": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "selectTimesheetData": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "PopoverTimeSheetData": {
+        "type": "sap.ui.model.json.JSONModel"
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ],
+      "js": [
+        {
+          "uri": "./libs/jspdf.umd.min.js"
+        },
+        {
+          "uri": "./libs/jspdf.plugin.autotable.min.js"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "hrmate.view",
+        "async": true,
+        "viewPath": "hrmate.view"
+      },
+      "routes": [
+        {
+          "name": "RouteView8",
+          "pattern": "",
+          "target": [
+            "TargetView8"
+          ]
+        },
+        {
+          "name": "RouteView1",
+          "pattern": "Home",
+          "target": [
+            "TargetView1"
+          ]
+        },
+        {
+          "name": "RouteView2",
+          "pattern": "Calendor",
+          "target": [
+            "TargetView2"
+          ]
+        },
+        {
+          "name": "RouteView3",
+          "pattern": "Leave",
+          "target": [
+            "TargetView3"
+          ]
+        },
+        {
+          "name": "RouteView4",
+          "pattern": "Payslip",
+          "target": [
+            "TargetView4"
+          ]
+        },
+        {
+          "name": "RouteView5",
+          "pattern": "leaveBalance",
+          "target": [
+            "TargetView5"
+          ]
+        },
+        {
+          "name": "RouteView6",
+          "pattern": "profile",
+          "target": [
+            "TargetView6"
+          ]
+        },
+        {
+          "name": "RouteView7",
+          "pattern": "attedenceregularization",
+          "target": [
+            "TargetView7"
+          ]
+        },
+        {
+          "name": "RouteView9",
+          "pattern": "EmpDetails/{index}",
+          "target": [
+            "TargetView9"
+          ]
+        },
+        {
+          "name": "RouteView10",
+          "pattern": "Admin",
+          "target": [
+            "TargetView10"
+          ]
+        },
+        {
+          "name": "RouteView11",
+          "pattern": "ApplyLeave",
+          "target": [
+            "TargetView11"
+          ]
+        },
+        {
+          "name": "RouteView12",
+          "pattern": "Certificates",
+          "target": [
+            "TargetView12"
+          ]
+        },
+        {
+          "name": "RouteView13",
+          "pattern": "TimesheetEntry",
+          "target": [
+            "TargetView13"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetView1": {
+          "id": "View1",
+          "name": "View1"
+        },
+        "TargetView2": {
+          "id": "Calendor",
+          "name": "Calendor"
+        },
+        "TargetView3": {
+          "id": "Leave",
+          "name": "Leave"
+        },
+        "TargetView4": {
+          "id": "Payslip",
+          "name": "Payslip"
+        },
+        "TargetView5": {
+          "id": "LeaveBalance",
+          "name": "LeaveBalance"
+        },
+        "TargetView6": {
+          "id": "profile",
+          "name": "profile"
+        },
+        "TargetView7": {
+          "id": "attedenceregularization",
+          "name": "attedenceregularization"
+        },
+        "TargetView8": {
+          "id": "login",
+          "name": "login"
+        },
+        "TargetView9": {
+          "id": "EmpDetails",
+          "name": "EmpDetails"
+        },
+        "TargetView10": {
+          "id": "Admin",
+          "name": "Admin"
+        },
+        "TargetView11": {
+          "id": "ApplyLeave",
+          "name": "ApplyLeave"
+        },
+        "TargetView12": {
+          "id": "Certificates",
+          "name": "Certificates"
+        },
+        "TargetView13": {
+          "id": "TimesheetEntry",
+          "name": "TimesheetEntry"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "hrmate.view.App",
+      "type": "XML",
+      "id": "App"
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "hrmate"
+  }
+}

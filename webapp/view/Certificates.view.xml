@@ -1,0 +1,158 @@
+<mvc:View xmlns:cssgrid="sap.ui.layout.cssgrid" controllerName="hrmate.controller.Certificates"
+	xmlns:core="sap.ui.core"
+	xmlns:unified="sap.ui.unified"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:layout="sap.ui.layout"
+	xmlns:f="sap.f">
+
+	<Page enableScrolling="false" showHeader="false">
+		<f:DynamicPage id="dynamicPageIdCertificates" preserveHeaderStateOnScroll="true" showFooter="true" fitContent="true">
+			<f:title>
+				<f:DynamicPageTitle>
+					<f:heading>
+						<Title text="Certificates" wrapping="true"/>
+					</f:heading>
+					<f:expandedContent>
+						<Label design="Bold" text="{maindata>/EmployeeCode}" wrapping="true"/>
+					</f:expandedContent>
+					<f:snappedContent>
+						<Label design="Bold" text="{maindata>/EmployeeCode}" wrapping="true"/>
+					</f:snappedContent>
+					<f:snappedTitleOnMobile>
+						<Title text="{maindata>/EmployeeCode}" wrapping="true"/>
+					</f:snappedTitleOnMobile>
+					<f:actions>
+						<ToolbarSpacer/>
+						<VBox class="sapUiSmallMarginTop">
+							<ObjectAttribute title="Employee Name" text="{maindata>/profile/firstName} {maindata>/profile/lastName}"/>
+							<ObjectAttribute title="Today Date" text="{maindata>/currentDate}" />
+						</VBox>
+					</f:actions>
+				</f:DynamicPageTitle>
+			</f:title>
+			<f:content>
+
+				<f:GridList mode="Delete" delete="onDeleteCertificate" id="idCertificateGrid" items="{certificates>/}" noDataText="No certificates uploaded.">
+					<f:customLayout>
+						<cssgrid:GridBasicLayout gridTemplateColumns="repeat(auto-fit, minmax(16rem, 1fr))" gridGap="0.5rem"></cssgrid:GridBasicLayout>
+					</f:customLayout>
+
+					<f:headerToolbar>
+						<OverflowToolbar width="100%">
+							<Title text="Certificates" wrapping="true"/>
+							<ToolbarSpacer/>
+							<ToggleButton icon="{= ${certificates>/bShowOnlyFavorites} ? 'sap-icon://list' : 'sap-icon://favorite-list'}" press="_ongetCerificatesData" id="showFavdata" text="{= ${certificates>/bShowOnlyFavorites} ? 'All Certificate' : 'Favourite Certificate' }" type="Ghost" pressed="false"/>
+
+							<Button icon="sap-icon://attachment" press="onPressAddCertificates" id="onPressAddCertificates" text="Add Certificates" type="Emphasized"/>
+						</OverflowToolbar>
+					</f:headerToolbar>
+					<f:noData>
+						<IllustratedMessage title="No Certificates Found" description="No certificates have been uploaded yet." illustrationType="sapIllus-NoEntries">
+						</IllustratedMessage>
+					</f:noData>
+
+					<f:items>
+						<f:GridListItem highlight="{= ${certificates>Favourite} ? 'Information' : 'None' }">
+							<HBox class="sapUiSmallMargin" justifyContent="SpaceAround">
+								<Avatar class="sapUiTinyMargin" src="{certificates>FileData}" displaySize="XL" displayShape="Square" showBorder="true">
+									<detailBox>
+										<LightBox>
+											<LightBoxItem imageSrc="{certificates>FileData}" alt="{certificates>FileName}" title="{certificates>FileName}" subtitle="{certificates>UploadDate}"/>
+										</LightBox>
+									</detailBox>
+								</Avatar>
+								<VBox class="sapUiSmallMarginBegin" wrap="Wrap">
+									<Title level="H3" titleStyle="H3" text="{certificates>FileName}" wrapping="true" class="sapUiTinyMarginTop" />
+									<Title level="H5" titleStyle="H5" text="Uploaded on: {certificates>UploadDate}" wrapping="true"/>
+
+								</VBox>
+							</HBox>
+							<HBox class="sapUiSmallMargin" wrap="Wrap" justifyContent="Center">
+								<Button text="Download" icon="sap-icon://download" class="sapUiTinyMarginEnd" press="onDownloadCertificate"/>
+								<Button class="sapUiTinyMarginBegin sapUiTinyMarginEnd" icon="{= ${certificates>Favourite} ? 'sap-icon://favorite' : 'sap-icon://unfavorite' }" press="onToggleFavCertificate"/>
+								<Button text="Edit" icon="sap-icon://edit" class="sapUiTinyMarginBegin" press="onPressupdateCertificates"/>
+							</HBox>
+						</f:GridListItem>
+					</f:items>
+				</f:GridList>
+				<!-- <Panel>
+					<headerToolbar>
+						<OverflowToolbar width="100%">
+							<Title text="Certificates" wrapping="true"/>
+							<ToolbarSpacer/>
+							<ToggleButton icon="{= ${certificates>/bShowOnlyFavorites} ? 'sap-icon://list' : 'sap-icon://favorite-list'}" press="_ongetCerificatesData" id="showFavdata" text="{= ${certificates>/bShowOnlyFavorites} ? 'All Certificate' : 'Favourite Certificate' }" type="Ghost" pressed="false"/>
+							<Button icon="sap-icon://attachment" press="onPressAddCertificates" id="onPressAddCertificates" text="Add Certificates" type="Emphasized"/>
+						</OverflowToolbar>
+					</headerToolbar>
+
+					<layout:Grid defaultSpan="XL4 L4 M6 S12" content="{certificates>/}" position="Right"> -->
+
+				<!-- <f:Card>
+							<f:content>
+								<HBox class="sapUiSmallMargin" justifyContent="SpaceAround" backgroundDesign="Solid">
+									<Avatar class="sapUiTinyMargin" src="{certificates>FileData}" displaySize="XL" displayShape="Square" showBorder="true">
+										<detailBox>
+											<LightBox>
+												<LightBoxItem imageSrc="{certificates>FileData}" alt="{certificates>FileName}" title="{certificates>FileName}" subtitle="{certificates>UploadDate}"/>
+											</LightBox>
+										</detailBox>
+									</Avatar> -->
+
+				<!-- <Image src="{certificates>FileData}" height="96%" width="100%">
+										<detailBox>
+											<LightBox>
+												<LightBoxItem imageSrc="{certificates>FileData}" alt="{certificates>FileName}" title="{certificates>FileName}" subtitle="{certificates>UploadDate}"/>
+											</LightBox>
+										</detailBox>
+									</Image> -->
+				<!-- <VBox class="sapUiSmallMarginBegin" wrap="Wrap">
+										<Title level="H3" titleStyle="H3" text="{certificates>FileName}" wrapping="true" class="sapUiTinyMarginTop" />
+										<Title level="H5" titleStyle="H5" text="Uploaded on: {certificates>UploadDate}" wrapping="true"/>
+									</VBox>
+										<HBox class="sapUiSmallMarginTop" wrap="Wrap">
+											<Button text="Download" icon="sap-icon://download" class="sapUiTinyMarginEnd" press="onDownloadCertificate"/>
+											<Button class="sapUiTinyMarginEnd" icon="{= ${certificates>Favourite} ? 'sap-icon://favorite' : 'sap-icon://unfavorite' }" press="onToggleFavCertificate"/>
+										</HBox>
+								</HBox>
+							</f:content>
+						</f:Card> -->
+
+				<!-- <layout:BlockLayout background="Dashboard">
+							<layout:BlockLayoutRow>
+								<layout:BlockLayoutCell width="20%">
+									<HBox class="sapUiSmallMargin" justifyContent="SpaceAround" backgroundDesign="Solid">
+										<Avatar src="{certificates>FileData}" displaySize="XL" displayShape="Square" showBorder="true">
+											<detailBox>
+												<LightBox>
+													<LightBoxItem imageSrc="{certificates>FileData}" alt="{certificates>FileName}" title="{certificates>FileName}" subtitle="{certificates>UploadDate}"/>
+												</LightBox>
+											</detailBox>
+										</Avatar>
+										<VBox class="sapUiSmallMarginBegin" wrap="Wrap">
+											<Title level="H3" titleStyle="H3" text="{certificates>FileName}" wrapping="true" class="sapUiTinyMarginTop" />
+											<Title level="H5" titleStyle="H5" text="Uploaded on: {certificates>UploadDate}" wrapping="true"/>
+											<HBox class="sapUiSmallMarginTop" wrap="Wrap">
+												<Button text="Download" icon="sap-icon://download" class="sapUiTinyMarginEnd" press="onDownloadCertificate"/>
+												<Button class="sapUiTinyMarginEnd" icon="{= ${certificates>Favourite} ? 'sap-icon://favorite' : 'sap-icon://unfavorite' }" press="onToggleFavCertificate"/>
+											</HBox>
+										</VBox>
+									</HBox>
+								</layout:BlockLayoutCell>
+							</layout:BlockLayoutRow>
+						</layout:BlockLayout> -->
+
+				<!-- </layout:Grid>
+				</Panel> -->
+
+
+
+
+			</f:content>
+
+		</f:DynamicPage>
+
+
+	</Page>
+</mvc:View>
