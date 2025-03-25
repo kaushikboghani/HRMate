@@ -297,17 +297,7 @@ sap.ui.define(["./BaseController", "sap/m/MessageBox", "sap/ui/core/Fragment", "
     },
 
 
-    onSearchLeaveRequests: function (oEvent) {
-      var sQuery = oEvent.getParameter("newValue");
-      var oBinding = this.byId("LeaveRequestTable").getBinding("items");
-
-      if (sQuery) {
-        var oFilter = new sap.ui.model.Filter("employeecode", sap.ui.model.FilterOperator.Contains, sQuery);
-        oBinding.filter([oFilter]);
-      } else {
-        oBinding.filter([]);
-      }
-    },
+   
 
 
     onSelectAddDate: function (oEvent) {
