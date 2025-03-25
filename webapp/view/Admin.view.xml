@@ -62,7 +62,7 @@
 
                                         <fb:FilterGroupItem name="EmployeeCode" label="Employee Code" groupName="Group1" visibleInFilterBar="true">
                                             <fb:control>
-                                                <SearchField liveChange="onSearchfield" placeholder="Search by Employee Code" id="onSearchbarEmployee"/>
+                                                <SearchField search="onSearchfield" placeholder="Search by Employee Code" id="onSearchbarEmployee"/>
                                             </fb:control>
                                         </fb:FilterGroupItem>
 
@@ -105,7 +105,7 @@
                                 <IconTabFilter text="Employees Data" key="EmployeesData">
                                     <content>
 
-                                        <Table inset="true" id="EMPData" items="{EMPData>/}" sticky="ColumnHeaders" >
+                                        <Table inset="true" mode="SingleSelectLeft" id="EMPData"  items="{EMPData>/}" sticky="ColumnHeaders" >
                                             <headerToolbar>
                                                 <OverflowToolbar>
                                                     <content>
@@ -349,7 +349,7 @@
                                                     <content>
                                                         <SearchField width="15rem" placeholder="Search by Employee Code" liveChange="onSearchTimeSheetAllDataEMPData"/>
                                                         <ToolbarSpacer/>
-                                                        <Select id="TimeSheetAllDataFilter" change="onFilterAttedenceRegularizationEMPData" width="11rem" wrapItemsText="true">
+                                                        <Select id="TimeSheetAllDataFilter" change="onFilterTimeSheetAllDataFilterEMPData" width="11rem" wrapItemsText="true">
                                                             <items>
                                                                 <core:Item key="All" text="All"/>
                                                                 <core:Item key="Pending" text="Pending"/>

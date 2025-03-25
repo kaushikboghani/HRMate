@@ -242,7 +242,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageBox", "sap/ui/core/Fr
     onSearchAttedenceRegularizationEMPData: function (oEvent) {
       this.onSearchData(oEvent, "AttedenceRegularizationDataTable", "employeecode");
     },
-    onFilterAttedenceRegularization: function (oEvent) {
+    onFilterAttedenceRegularizationEMPData: function (oEvent) {
       this.onFilterData(oEvent, "AttedenceRegularizationDataTable", "RegularizationStatus");
     },
 
@@ -275,20 +275,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageBox", "sap/ui/core/Fr
           sap.m.MessageToast.show("Error occurred: " + error.message);
         });
     },
-
-    // onPressAddCertificates: function () {
-    //   debugger
-    //   debugger
-    //   var pDialogCertificates
-    //   if (!pDialogCertificates) {
-    //     pDialogCertificates = this.loadFragment({
-    //       name: "hrmate.fragments.Certificates",
-    //     });
-    //   }
-    //   pDialogCertificates.then(function (oDialogCertificates) {
-    //     oDialogCertificates.open()
-    //   });
-    // },
 
     onPressAddCertificates: function (oEvent) {
       var pDialogCertificates;
@@ -330,7 +316,9 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageBox", "sap/ui/core/Fr
       var sQuery = oEvent.getSource().getValue();
       var oTable = this.getView().byId(sTableId);
       var oBinding = oTable.getBinding("items");
-      var aFilters = sQuery ? [new sap.ui.model.Filter(sSearchField, sap.ui.model.FilterOperator.Contains, sQuery)] : [];
+      var ofilternumber = !isNaN(sQuery)? Number(sQuery) : sQuery
+      var aFilters =[];
+      (sQuery && aFilters.push(new sap.ui.model.Filter(sSearchField, sap.ui.model.FilterOperator.EQ, ofilternumber)))
       oBinding.filter(aFilters);
     },
 
@@ -459,7 +447,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageBox", "sap/ui/core/Fr
     onSearchTimeSheetAllDataEMPData: function (oEvent) {
       this.onSearchData(oEvent, "TimeSheetDataTable", "employeecode");
     },
-    onFilterAttedenceRegularizationEMPData: function (oEvent) {
+    onFilterTimeSheetAllDataFilterEMPData: function (oEvent) {
       this.onFilterData(oEvent, "TimeSheetDataTable", "status");
     },
     onPressMoreTimeSheetData: function (oEvent) {

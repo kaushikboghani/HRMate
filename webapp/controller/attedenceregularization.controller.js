@@ -1,4 +1,5 @@
-sap.ui.define(["./BaseController", "sap/m/MessageBox"], (BaseController, MessageBox) => {
+sap.ui.define(["./BaseController", "sap/m/MessageBox",	"sap/ui/core/Messaging",
+	"sap/ui/core/message/Message",], (BaseController, MessageBox,Messaging,Message) => {
   "use strict";
 
   return BaseController.extend("hrmate.controller.attedenceregularization", {
@@ -29,24 +30,50 @@ sap.ui.define(["./BaseController", "sap/m/MessageBox"], (BaseController, Message
 
     onSubmitRegularization: function (oEvent) {
       debugger
-      var isValid = true, oView = this.getView();
-      if (this.getView().byId("idRegularizationType").getSelectedKey() === "Missed Punch In") {
-        var ids = ["idRegularizationType", "idDate", "idPunchInTime", "idReason"]
-      } else if (this.getView().byId("idRegularizationType").getSelectedKey() === "Missed Punch Out") {
-        var ids = ["idRegularizationType", "idDate", "idPunchOutTime", "idReason"]
-      } else {
-        var ids = ["idRegularizationType", "idDate", "idPunchInTime", "idPunchOutTime", "idReason"]
-      }
+      // var isValid = true, oView = this.getView();
+      // if (this.getView().byId("idRegularizationType").getSelectedKey() === "Missed Punch In") {
+      //   var ids = ["idRegularizationType", "idDate", "idPunchInTime", "idReason"]
+      // } else if (this.getView().byId("idRegularizationType").getSelectedKey() === "Missed Punch Out") {
+      //   var ids = ["idRegularizationType", "idDate", "idPunchOutTime", "idReason"]
+      // } else {
+      //   var ids = ["idRegularizationType", "idDate", "idPunchInTime", "idPunchOutTime", "idReason"]
+      // }
 
-      ids.forEach(sId => {
-        var oInput = oView.byId(sId),
-          sValue = oInput?.getValue?.()?.trim() || oInput?.getSelectedKey?.()?.trim();
-        oInput?.setValueState(sValue ? "None" : (isValid = false, "Error"));
-        oInput?.setValueStateText(sValue ? "" : "This field is required");
+      // ids.forEach(sId => {
+      //   var oInput = oView.byId(sId),
+      //     sValue = oInput?.getValue?.()?.trim() || oInput?.getSelectedKey?.()?.trim();
+      //   oInput?.setValueState(sValue ? "None" : (isValid = false, "Error"));
+      //   oInput?.setValueStateText(sValue ? "" : "This field is required");
+      // });
+
+      // if (!isValid) return sap.m.MessageToast.show("Please fill all required fields.");
+
+      var oView = this.getView();
+      Messaging.removeAllMessages();
+      
+      var oModel = this.getView().getModel("RegularizationForm"),
+          oData = oModel.getData(),
+          isValid = true,
+          fieldsMap = {
+              "Missed Punch In": ["RegularizationType", "RegularizationDate", "RegularizationPunchInTime", "Reason"],
+              "Missed Punch Out": ["RegularizationType", "RegularizationDate", "RegularizationPunchOutTime", "Reason"],
+              "Missed Both": ["RegularizationType", "RegularizationDate", "RegularizationPunchInTime", "RegularizationPunchOutTime", "Reason"]
+          };
+      
+      (fieldsMap[oData.RegularizationType] || fieldsMap["Missed Both"]).forEach(property => {
+          if (!oData[property]?.trim()) {
+              isValid = false;
+              Messaging.addMessages(new sap.ui.core.message.Message({
+                  message: property + " field is required",
+                  type: sap.ui.core.MessageType.Error,
+                  target: `/${property}`,
+                  processor: oModel
+              }));
+          }
       });
-
+      
       if (!isValid) return sap.m.MessageToast.show("Please fill all required fields.");
-
+      
       var that = this;
       sap.ui.core.BusyIndicator.show();
 

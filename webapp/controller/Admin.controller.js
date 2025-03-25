@@ -1,6 +1,7 @@
 sap.ui.define(["./BaseController", "sap/m/MessageBox", "sap/ui/core/Fragment", "sap/ui/model/Filter",
-  "sap/ui/model/FilterOperator"
-], (BaseController, MessageBox, Fragment, Filter, FilterOperator) => {
+  "sap/ui/model/FilterOperator" , "sap/ui/core/Messaging",
+	"sap/ui/core/message/Message",
+], (BaseController, MessageBox, Fragment, Filter, FilterOperator,Messaging,Message) => {
   "use strict";
 
   return BaseController.extend("hrmate.controller.Admin", {
@@ -136,33 +137,56 @@ sap.ui.define(["./BaseController", "sap/m/MessageBox", "sap/ui/core/Fragment", "
     onAddDetails: function (oEvent) {
       debugger;
 
-      var aRequiredFields = [
-        "EmployeeCodeID", "FirstNameID", "LastNameID", "DateofBirthID",
-        "GenderID", "MaritalStatusID", "PasswordID", "MobileNumberID",
-        "EmailID", "PANNumberID", "AadhaarNumberID", "DesignationID",
-        "BranchID", "RoleID", "DateofJoiningID", "ReportingManagerID",
-        "ApprovingManagerID", "BankNameID", "BankAccountNumberID",
-        "BankIFSCCodeID"
-      ];
+      // var aRequiredFields = [
+      //   "EmployeeCodeID", "FirstNameID", "LastNameID", "DateofBirthID",
+      //   "GenderID", "MaritalStatusID", "PasswordID", "MobileNumberID",
+      //   "EmailID", "PANNumberID", "AadhaarNumberID", "DesignationID",
+      //   "BranchID", "RoleID", "DateofJoiningID", "ReportingManagerID",
+      //   "ApprovingManagerID", "BankNameID", "BankAccountNumberID",
+      //   "BankIFSCCodeID"
+      // ];
 
-      var isValid = true;
+      // var isValid = true;
 
-      aRequiredFields.forEach(function (sId) {
-        var oInput = this.getView().byId(sId);
-        if (oInput && oInput.getValue) {
-          var sValue = oInput.getValue().trim();
-          if (!sValue) {
-            oInput.setValueState("Error");
-            oInput.setValueStateText("This field is required");
-            isValid = false;
-          } else {
-            oInput.setValueState("None");
-          }
-        }
-      }, this);
+      // aRequiredFields.forEach(function (sId) {
+      //   var oInput = this.getView().byId(sId);
+      //   if (oInput && oInput.getValue) {
+      //     var sValue = oInput.getValue().trim();
+      //     if (!sValue) {
+      //       oInput.setValueState("Error");
+      //       oInput.setValueStateText("This field is required");
+      //       isValid = false;
+      //     } else {
+      //       oInput.setValueState("None");
+      //     }
+      //   }
+      // }, this);
 
 
-      if (!isValid) return sap.m.MessageToast.show("Please fill all required fields.");
+      // if (!isValid) return sap.m.MessageToast.show("Please fill all required fields.");
+
+      // Messaging.removeAllMessages();
+      // var oModel = this.getView().getModel("addPaylodEMP")
+      // var isValid = true;
+      // var aRequiredFields = [
+      //   "firstName", "lastName", "DateOfBirth", "Gender", "MaritalStatus", "Password",
+      //   "MobileNumber", "Email", "PANNumber", "AadhaarNumber", "Designation", "Branch",
+      //   "role", "DateofJoining", "ReportingManager", "ApprovingManager", "BankName",
+      //   "BankAccountNumber", "BankIFSCCode"
+      // ];
+      // aRequiredFields.forEach(property => {
+      //   if (!oModel.getData()[property]?.trim()) {
+      //     isValid = false;
+      //     Messaging.addMessages(new sap.ui.core.message.Message({
+      //       message: property +  " field is required",
+      //       type: sap.ui.core.MessageType.Error,
+      //       target: `/${property}`,
+      //       processor: oModel
+      //     }));
+      //   }
+      // });
+
+      // if (!isValid) return sap.m.MessageToast.show("Please fill all required fields.");
 
       var EMPID = Number(this.getView().byId("EmployeeCodeID").getValue());
       var oModel = this.getOwnerComponent().getModel("addPaylodEMP").getData();
@@ -214,7 +238,7 @@ sap.ui.define(["./BaseController", "sap/m/MessageBox", "sap/ui/core/Fragment", "
           sap.m.MessageToast.show("Employee Added Successfully");
           oEvent.getSource().getParent().getParent().getParent().close();
           oEvent.getSource().getParent().getParent().getParent().destroy();
-          this.getOwnerComponent().getModel("EMPData").setData(data.Results);
+          this.getOwnerComponent().getModel("EMPData").setData(data.data);
           this.getOwnerComponent().getModel("EMPData").refresh(true);
           this.getOwnerComponent().getModel("addPaylodEMP").setData({});
           this.getOwnerComponent().getModel("addPaylodEMP").refresh(true);
@@ -253,11 +277,11 @@ sap.ui.define(["./BaseController", "sap/m/MessageBox", "sap/ui/core/Fragment", "
                 }
                 return response.json();
               })
-              .then(() => {
+              .then((data) => {
                 sap.ui.core.BusyIndicator.hide();
                 sap.m.MessageToast.show("Selected items deleted successfully.");
-                this.getOwnerComponent().getModel("EMPData").refresh(true);
-              })
+                this.getOwnerComponent().getModel("EMPData").setData(data.data);
+                this.getOwnerComponent().getModel("EMPData").refresh(true);              })
               .catch(error => {
                 sap.ui.core.BusyIndicator.hide();
                 sap.m.MessageToast.show("Error occurred: " + error.message);
@@ -269,25 +293,7 @@ sap.ui.define(["./BaseController", "sap/m/MessageBox", "sap/ui/core/Fragment", "
 
 
     onSearchfield: function (oEvent) {
-      var sQuery = oEvent.getParameter("newValue").trim();
-      var oBinding = this.byId("EMPData").getBinding("items");
-
-      if (!sQuery) {
-        oBinding.filter([]);
-      } else {
-        var iQuery = parseInt(sQuery, 10);
-        if (!isNaN(iQuery)) {
-          var oFilter = new sap.ui.model.Filter({
-            path: "EmployeeCode",
-            operator: sap.ui.model.FilterOperator.EQ,
-            value1: iQuery
-          });
-
-          oBinding.filter([oFilter]);
-        } else {
-          oBinding.filter([]);
-        }
-      }
+      this.onSearchData(oEvent, "EMPData", "EmployeeCode");
     },
 
 
@@ -431,7 +437,7 @@ sap.ui.define(["./BaseController", "sap/m/MessageBox", "sap/ui/core/Fragment", "
                 that._sendEmailActiontakeLeave(actionType, Oobject);
               });
           }
-        } 
+        }
       });
     },
 
@@ -451,7 +457,7 @@ sap.ui.define(["./BaseController", "sap/m/MessageBox", "sap/ui/core/Fragment", "
           let leaveEntry = data.find(item => item.type === Oobject.LeaveType)
           var updatePayload = {
             "type": Oobject.LeaveType,
-            "days":  Math.max(0, leaveEntry.days - Oobject.TotalLeaveDay)
+            "days": Math.max(0, leaveEntry.days - Oobject.TotalLeaveDay)
           };
 
           var updateUrl = "https://hrmapi-lac.vercel.app/api/employee/leaveBalance?empcode=" + Oobject.employeecode;
@@ -627,11 +633,11 @@ sap.ui.define(["./BaseController", "sap/m/MessageBox", "sap/ui/core/Fragment", "
     /////////////////////////////////////////Tiemsheet Entry//////////////////////////////////// 
 
 
-   
+
     handleTimesheetEntry: function (oEvent) {
       var oObject = oEvent.getSource().getBindingContext("TimeSheetAllData").getObject();
       var that = this;
-      var actionType = oEvent.getSource().getText(); 
+      var actionType = oEvent.getSource().getText();
       var confirmationMessage = actionType === "Approve"
         ? "Are you sure you want to approve this timesheet?"
         : "Are you sure you want to reject this timesheet?";
