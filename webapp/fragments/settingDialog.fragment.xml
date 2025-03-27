@@ -135,7 +135,7 @@
 
                                                     </form:SimpleForm>
                                                     <!-- /////////////////////////////////////////////////Theme And Appearance////////////////////////////////////////////////// -->
-                                                    <List id="idThemeList" mode="SingleSelectLeft" visible="{= ${settingInputsModel>/selectedSetting} === 'Theme And Appearance'}">
+                                                    <List id="idThemeList" headerText="Select Theme" mode="SingleSelectLeft" visible="{= ${settingInputsModel>/selectedSetting} === 'Theme And Appearance'}">
                                                         <StandardListItem id="sap_fiori_3" title="SAP Quartz Light" description="sap_fiori_3 - Default light theme in SAP Fiori 3" icon="sap-icon://color-fill" type="Active" wrapping="true" selected="{= ${maindata>/profile/Theme} === 'sap_fiori_3'}" />
                                                         <StandardListItem id="sap_fiori_3_dark" title="SAP Quartz Dark" description="sap_fiori_3_dark - Dark mode variant of Quartz" icon="sap-icon://contrast" type="Active" wrapping="true" selected="{= ${maindata>/profile/Theme} === 'sap_fiori_3_dark'}"/>
                                                         <StandardListItem id="sap_fiori_3_hcw" title="SAP Quartz High Contrast White" description="sap_fiori_3_hcw - High contrast white theme" icon="sap-icon://detail-view" type="Active" wrapping="true" selected="{= ${maindata>/profile/Theme} === 'sap_fiori_3_hcw'}"/>
@@ -155,7 +155,7 @@
                                                     </HBox>
 
                                                     <!-- /////////////////////////////////////////////////////////sessiontime///////////////////////////////////// -->
-                                                    <List id="SessionTimeoutList" mode="SingleSelectLeft" selectionChange="onChangeSessionTimeout" visible="{= ${settingInputsModel>/selectedSetting} === 'Session Management'}">
+                                                    <List id="SessionTimeoutList"    headerText="Select Session Timeout"  mode="SingleSelectLeft" selectionChange="onChangeSessionTimeout" visible="{= ${settingInputsModel>/selectedSetting} === 'Session Management'}">
                                                         <StandardListItem title="1 Minute" id="1Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '1Min'}" />
                                                         <StandardListItem title="5 Minutes" id="5Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '5Min'}" />
                                                         <StandardListItem title="10 Minutes" id="10Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '10Min'}" />
