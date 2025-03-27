@@ -154,14 +154,14 @@
                                                         <Button text="Cancel" type="Reject" press="CancelProfileSettingPress"/>
                                                     </HBox>
 
-                                                    <!-- /////////////////////////////////////////////////////////sessiontime///////////////////////////////////// -->
-                                                    <List id="SessionTimeoutList"    headerText="Select Session Timeout"  mode="SingleSelectLeft" selectionChange="onChangeSessionTimeout" visible="{= ${settingInputsModel>/selectedSetting} === 'Session Management'}">
-                                                        <StandardListItem title="1 Minute" id="1Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '1Min'}" />
-                                                        <StandardListItem title="5 Minutes" id="5Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '5Min'}" />
-                                                        <StandardListItem title="10 Minutes" id="10Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '10Min'}" />
-                                                        <StandardListItem title="15 Minutes" id="15Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '15Min'}" />
-                                                        <StandardListItem title="30 Minutes" id="30Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '30Min'}" />
-                                                        <StandardListItem title="1 Hour" type="Active" wrapping="true" id="60Min" selected="{= ${maindata>/profile/sessiontimeout} === '60Min'}" />
+                                                    <!-- /////////////////////////////////////////////////////////sessiontime//////////////////////////////////// -->
+                                                    <List id="sessiontimeList"    headerText="Select Session Timeout"  mode="SingleSelectLeft" selectionChange="onChangesessiontime" visible="{= ${settingInputsModel>/selectedSetting} === 'Session Management'}">
+                                                        <StandardListItem title="1 Minute" id="1Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontime} === '1Min'}" />
+                                                        <StandardListItem title="5 Minutes" id="5Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontime} === '5Min'}" />
+                                                        <StandardListItem title="10 Minutes" id="10Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontime} === '10Min'}" />
+                                                        <StandardListItem title="15 Minutes" id="15Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontime} === '15Min'}" />
+                                                        <StandardListItem title="30 Minutes" id="30Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontime} === '30Min'}" />
+                                                        <StandardListItem title="1 Hour" type="Active" wrapping="true" id="60Min" selected="{= ${maindata>/profile/sessiontime} === '60Min'}" />
                                                     </List>
 
                                                     <HBox wrap="Wrap" justifyContent="End" class="sapUiSmallMarginTop" visible="{= ${settingInputsModel>/selectedSetting} === 'Session Management'}">
