@@ -414,21 +414,29 @@ sap.ui.define([
           sap.m.MessageToast.show("Error: " + error.message);
         });
     },
-    CancelProfileSettingPress: function (oEvent) {
+    CancelThemeSettingcancelPress: function (oEvent) {
       debugger
+      var oModel = this.getView().getModel("maindata").getData().profile.Theme;
+      var oListItems =this.getView().byId("idThemeList").getItems()
+      oListItems.forEach(element => {
+       var items =  element.getId().split("-").pop()
+        if(oModel === items){
+          this.getView().byId("idThemeList").setSelectedItem(element,true)
+        }
+      });
       this.getView().byId("FlexibleColumnLayoutSetting").setLayout("OneColumn");
     },
 
 
     onPressSettingSetTime: function (oEvent) {
-      if (!this.getView().byId("SessionTimeoutList").getSelectedItem()) {
+      if (!this.getView().byId("sessiontimeList").getSelectedItem()) {
         sap.m.MessageToast.show("Please select a session timeout value.");
         return;
       }
       sap.ui.core.BusyIndicator.show();
       let oPayload = {
         profile: {
-          "sessiontime":this.getView().byId("SessionTimeoutList").getSelectedItem().getId().split("-").pop()
+          "sessiontime":this.getView().byId("sessiontimeList").getSelectedItem().getId().split("-").pop()
         }
       };
       let apiUrl = "https://hrmapi-lac.vercel.app/api/employee?employeeCode=" + $.sap.EmployeeCode;
@@ -447,7 +455,7 @@ sap.ui.define([
         .then(data => {
           sap.ui.core.BusyIndicator.hide();
           sap.ui.getCore().applyTheme(this.getView().byId("idThemeList").getSelectedItem().getId().split("-").pop());
-          sap.m.MessageToast.show("Session timeout set to : " + this.getView().byId("SessionTimeoutList").getSelectedItem().getTitle());
+          sap.m.MessageToast.show("Session timeout set to : " + this.getView().byId("sessiontimeList").getSelectedItem().getTitle());
           this.getView().getOwnerComponent().getModel("maindata").setData(data.Results);
           this.getView().getOwnerComponent().getModel("maindata").refresh(true);
         })
@@ -458,6 +466,14 @@ sap.ui.define([
     },
     CancelSessionTimeSettingPress: function (oEvent) {
       debugger
+      var oModel = this.getView().getModel("maindata").getData().profile.sessiontime;
+      var oListItems =this.getView().byId("sessiontimeList").getItems()
+      oListItems.forEach(element => {
+       var items =  element.getId().split("-").pop()
+        if(oModel === items){
+          this.getView().byId("sessiontimeList").setSelectedItem(element,true)
+        }
+      });
       this.getView().byId("FlexibleColumnLayoutSetting").setLayout("OneColumn");
     },
 

@@ -151,10 +151,10 @@
 
                                                     <HBox wrap="Wrap" justifyContent="End" class="sapUiSmallMarginTop" visible="{= ${settingInputsModel>/selectedSetting} === 'Theme And Appearance'}">
                                                         <Button text="Apply" type="Emphasized" press="onPressSettingApplyTheme" class="sapUiSmallMarginEnd"/>
-                                                        <Button text="Cancel" type="Reject" press="CancelProfileSettingPress"/>
+                                                        <Button text="Cancel" type="Reject" press="CancelThemeSettingcancelPress"/>
                                                     </HBox>
 
-                                                    <!-- /////////////////////////////////////////////////////////sessiontime//////////////////////////////////// -->
+                                                    <!-- /////////////////////////////////////////////////////////sessiontime///////////////////////////////////// -->
                                                     <List id="sessiontimeList"    headerText="Select Session Timeout"  mode="SingleSelectLeft" selectionChange="onChangesessiontime" visible="{= ${settingInputsModel>/selectedSetting} === 'Session Management'}">
                                                         <StandardListItem title="1 Minute" id="1Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontime} === '1Min'}" />
                                                         <StandardListItem title="5 Minutes" id="5Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontime} === '5Min'}" />
