@@ -253,9 +253,10 @@ sap.ui.define(["./BaseController", "sap/m/MessageBox", "sap/ui/core/Fragment", "
                 }
                 return response.json();
               })
-              .then(() => {
+              .then((data) => {
                 sap.ui.core.BusyIndicator.hide();
                 sap.m.MessageToast.show("Selected items deleted successfully.");
+                this.getOwnerComponent().getModel("EMPData").setData(data.Results);
                 this.getOwnerComponent().getModel("EMPData").refresh(true);
               })
               .catch(error => {

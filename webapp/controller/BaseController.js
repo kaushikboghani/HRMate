@@ -168,7 +168,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageBox", "sap/ui/core/Fr
         }
       }
       if (this.getView().getModel("maindata").getData().profile.isSound === true) {
-       
+        var audio = new Audio("./sound/mixkit-modern-technology-select-3124.wav");
+        audio.play();
       }
       $.sap.subTileBusy = oevent.getSource()
       this._onStopBusyCard(true)
@@ -495,6 +496,10 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageBox", "sap/ui/core/Fr
 
     onPressAppSetting: function (oEvent) {
       debugger
+      if (this.getView().getModel("maindata").getData().profile.isSound === true) {
+        var audio = new Audio("./sound/mixkit-modern-technology-select-3124.wav");
+        audio.play();
+      }
       var pDialog3
       if (!pDialog3) {
         pDialog3 = this.loadFragment({

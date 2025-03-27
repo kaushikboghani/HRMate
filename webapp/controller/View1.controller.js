@@ -206,6 +206,10 @@ sap.ui.define([
 
     onPressSettingItems: function (oEvent) {
       debugger
+      if (this.getView().getModel("maindata").getData().profile.isSound === true) {
+        var audio = new Audio("./sound/mixkit-modern-technology-select-3124.wav");
+        audio.play();
+      }
       oEvent.getSource().getParent().getParent().getParent().setLayout("MidColumnFullScreen")
       this.getView().byId("midColumnPagesSettingId").setTitle(oEvent.getParameter("listItem").getTitle())
       this.getView().getModel("settingInputsModel").setProperty("/selectedSetting", oEvent.getParameter("listItem").getTitle());

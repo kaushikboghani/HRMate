@@ -13,12 +13,20 @@ sap.ui.define(["./BaseController", "sap/m/MessageBox"], (BaseController, Message
   },
     listpressApplyLeave: function (oEvent) {
       // sap.ui.core.BusyIndicator.show();
+      if (this.getView().getModel("maindata").getData().profile.isSound === true) {
+        var audio = new Audio("./sound/mixkit-modern-technology-select-3124.wav");
+        audio.play();
+      }
       const oRouter = this.getOwnerComponent().getRouter();
       oRouter.navTo("RouteView11");
     },
 
     listpressLeaveBalance: function (oEvent) {
       // sap.ui.core.BusyIndicator.show();
+      if (this.getView().getModel("maindata").getData().profile.isSound === true) {
+        var audio = new Audio("./sound/mixkit-modern-technology-select-3124.wav");
+        audio.play();
+      }
       const oRouter = this.getOwnerComponent().getRouter();
       oRouter.navTo("RouteView5");
     },
