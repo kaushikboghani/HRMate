@@ -19,9 +19,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageBox", "sap/ui/core/Fr
       }
     },
 
-
-
-
     onAddEMP: function (oEvent) {
       debugger
       debugger
@@ -158,6 +155,21 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageBox", "sap/ui/core/Fr
     },
     onSubCardPress: function (oevent) {
       debugger
+      if (this.getView().getModel("maindata").getData().profile.isVibrate === true) {
+        var sTileId = oevent.getSource().getId();
+        if (sTileId.includes("PunchHistoryTileID")) {
+          if (navigator.vibrate) {
+            navigator.vibrate([300, 100, 300]);
+          }
+        } else {
+          if (navigator.vibrate) {
+            navigator.vibrate(200);
+          }
+        }
+      }
+      if (this.getView().getModel("maindata").getData().profile.isSound === true) {
+       
+      }
       $.sap.subTileBusy = oevent.getSource()
       this._onStopBusyCard(true)
       const oRouter = this.getOwnerComponent().getRouter();
@@ -276,6 +288,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageBox", "sap/ui/core/Fr
         });
     },
 
+
+
     onPressAddCertificates: function (oEvent) {
       var pDialogCertificates;
       $.sap.oPath = Number(oEvent?.getSource()?.getBindingContext("certificates")?.getPath().split("/").pop());
@@ -316,8 +330,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageBox", "sap/ui/core/Fr
       var sQuery = oEvent.getSource().getValue();
       var oTable = this.getView().byId(sTableId);
       var oBinding = oTable.getBinding("items");
-      var ofilternumber = !isNaN(sQuery)? Number(sQuery) : sQuery
-      var aFilters =[];
+      var ofilternumber = !isNaN(sQuery) ? Number(sQuery) : sQuery
+      var aFilters = [];
       (sQuery && aFilters.push(new sap.ui.model.Filter(sSearchField, sap.ui.model.FilterOperator.EQ, ofilternumber)))
       oBinding.filter(aFilters);
     },
@@ -454,23 +468,43 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/MessageBox", "sap/ui/core/Fr
       debugger
       var oView = this.getView();
       var oButton = oEvent.getSource();
-  
+
       if (!this._oPopover) {
-          this.loadFragment({
-              name: "hrmate.fragments.adminLinkTimesheetData",
-              controller: this
-          }).then(function (oPopover) {
-              this._oPopover = oPopover; // Store popover instance
-              oView.addDependent(this._oPopover); // Add as dependent
-              this._oPopover.openBy(oButton);
-          }.bind(this));
-      } else {
+        this.loadFragment({
+          name: "hrmate.fragments.adminLinkTimesheetData",
+          controller: this
+        }).then(function (oPopover) {
+          this._oPopover = oPopover;
+          oView.addDependent(this._oPopover);
           this._oPopover.openBy(oButton);
+        }.bind(this));
+      } else {
+        this._oPopover.openBy(oButton);
       }
       var oLinkData = oEvent.getSource().getBindingContext("TimeSheetAllData").getObject();
       this.getOwnerComponent().getModel("PopoverTimeSheetData").setData(oLinkData);
       this.getOwnerComponent().getModel("PopoverTimeSheetData").refresh(true);
-    }
+    },
 
+
+    ///////////////////////////////////////////////home page///////////////////////////////////
+
+
+
+
+
+    onPressAppSetting: function (oEvent) {
+      debugger
+      var pDialog3
+      if (!pDialog3) {
+        pDialog3 = this.loadFragment({
+          name: "hrmate.fragments.settingDialog",
+        });
+      }
+      pDialog3.then(function (oDialog3) {
+        oDialog3.open()
+      });
+
+    }
   });
 });

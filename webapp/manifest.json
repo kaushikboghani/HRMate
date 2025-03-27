@@ -169,6 +169,12 @@
       },
       "PopoverTimeSheetData": {
         "type": "sap.ui.model.json.JSONModel"
+      },
+      "settingInputsModel": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "EditProfileSetting": {
+        "type": "sap.ui.model.json.JSONModel"
       }
     },
     "resources": {

@@ -12,7 +12,7 @@
 
                 <!-- Header Title Section -->
                 <uxap:headerTitle>
-                    <uxap:ObjectPageDynamicHeaderTitle>
+                    <uxap:ObjectPageDynamicHeaderTitle> 
                         <uxap:expandedHeading>
                             <FlexBox>
                                 <items>
@@ -38,7 +38,7 @@
                         </uxap:snappedTitleOnMobile>
                         <uxap:actions>
                             <Button text="" class="sapUiTinyMargin" type="Ghost"/>
-                            <Button icon="sap-icon://settings" class="sapUiTinyMargin" type="Emphasized"/>
+                            <Button icon="sap-icon://settings" class="sapUiTinyMargin" type="Emphasized" press="onPressAppSetting"/>
                         </uxap:actions>
                     </uxap:ObjectPageDynamicHeaderTitle>
                 </uxap:headerTitle>

@@ -62,7 +62,7 @@
 
                                         <fb:FilterGroupItem name="EmployeeCode" label="Employee Code" groupName="Group1" visibleInFilterBar="true">
                                             <fb:control>
-                                                <SearchField search="onSearchfield" placeholder="Search by Employee Code" id="onSearchbarEmployee"/>
+                                                <SearchField  search="onSearchfield" placeholder="Search by Employee Code" id="onSearchbarEmployee"/>
                                             </fb:control>
                                         </fb:FilterGroupItem>
 
@@ -105,7 +105,7 @@
                                 <IconTabFilter text="Employees Data" key="EmployeesData">
                                     <content>
 
-                                        <Table inset="true" mode="SingleSelectLeft" id="EMPData"  items="{EMPData>/}" sticky="ColumnHeaders" >
+                                        <Table inset="true" mode="SingleSelectLeft" id="EMPData" items="{EMPData>/}" sticky="ColumnHeaders" >
                                             <headerToolbar>
                                                 <OverflowToolbar>
                                                     <content>
