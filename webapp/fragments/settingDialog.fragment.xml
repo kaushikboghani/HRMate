@@ -154,17 +154,14 @@
                                                         <Button text="Cancel" type="Reject" press="CancelProfileSettingPress"/>
                                                     </HBox>
 
-
-
-
-
+                                                    <!-- /////////////////////////////////////////////////////////sessiontime///////////////////////////////////// -->
                                                     <List id="SessionTimeoutList" mode="SingleSelectLeft" selectionChange="onChangeSessionTimeout" visible="{= ${settingInputsModel>/selectedSetting} === 'Session Management'}">
-                                                        <StandardListItem title="1 Minute" id="1Min" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '1Min'}" />
-                                                        <StandardListItem title="5 Minutes" id="5Min" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '5Min'}" />
-                                                        <StandardListItem title="10 Minutes" id="10Min" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '10Min'}" />
-                                                        <StandardListItem title="15 Minutes" id="15Min" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '15Min'}" />
-                                                        <StandardListItem title="30 Minutes" id="30Min" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '30Min'}" />
-                                                        <StandardListItem title="1 Hour" type="Active" id="60Min" selected="{= ${maindata>/profile/sessiontimeout} === '60Min'}" />
+                                                        <StandardListItem title="1 Minute" id="1Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '1Min'}" />
+                                                        <StandardListItem title="5 Minutes" id="5Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '5Min'}" />
+                                                        <StandardListItem title="10 Minutes" id="10Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '10Min'}" />
+                                                        <StandardListItem title="15 Minutes" id="15Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '15Min'}" />
+                                                        <StandardListItem title="30 Minutes" id="30Min" wrapping="true" type="Active" selected="{= ${maindata>/profile/sessiontimeout} === '30Min'}" />
+                                                        <StandardListItem title="1 Hour" type="Active" wrapping="true" id="60Min" selected="{= ${maindata>/profile/sessiontimeout} === '60Min'}" />
                                                     </List>
 
                                                     <HBox wrap="Wrap" justifyContent="End" class="sapUiSmallMarginTop" visible="{= ${settingInputsModel>/selectedSetting} === 'Session Management'}">
@@ -172,17 +169,13 @@
                                                         <Button text="Cancel" type="Reject" press="CancelSessionTimeSettingPress"/>
                                                     </HBox>
 
-
-
-
-
-
+                                                    <!-- ///////////////////////////////////////logout/////////////////////////////////////////////// -->
                                                     <form:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" visible="{= ${settingInputsModel>/selectedSetting} === 'Logout'}">
 
                                                         <MessageStrip text="Are you sure you want to log out?" id="logoutAllDevices" type="Information" showIcon="true"/>
 
-                                                            <Button text="Confirm" type="Emphasized" press="onPressConfirmLogout" class="sapUiSmallMarginEnd"/>
-                                                            <Button text="Cancel" type="Reject" press="onPressCancelLogout"/>
+                                                        <Button text="Confirm" type="Emphasized" press="onPressConfirmLogout" class="sapUiSmallMarginEnd"/>
+                                                        <Button text="Cancel" type="Reject" press="onPressCancelLogout"/>
                                                     </form:SimpleForm>
 
                                                 </layout:content>
